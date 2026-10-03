@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Contact | Rashmika Visuals</title>
+
+
+<!-- =========================
+     GOOGLE FONTS
+========================= -->
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet">
+
+
+<!-- =========================
+     FONT AWESOME
+========================= -->
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root {
+    --bg: #f8f7f3;
+    --text: #242421;
+    --muted: #77766f;
+    --border: #d9d7d0;
+    --accent: #b49a76;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 82px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    width: 100%;
+    height: 82px;
+
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--bg);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+
+/* LOGO */
+
+.logo {
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 23px;
+
+    letter-spacing: 3px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+nav a {
+
+    font-size: 11px;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+
+    padding: 11px 15px;
+
+    border: 1px solid transparent;
+
+    border-radius: 50px;
+
+    transition:
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+nav a:hover,
+nav a.active {
+
+    border-color: var(--text);
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   HEADER SOCIALS
+========================================================= */
+
+.socials {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    padding-left: 25px;
+
+    border-left: 1px solid var(--border);
+}
+
+.socials a {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.socials a:hover {
+
+    color: var(--accent);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
+
+.menu-toggle {
+
+    display: none;
+
+    background: none;
+
+    border: none;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    color: var(--text);
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+section {
+
+    padding: 110px 7%;
+}
+
+.section-label {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.section-label::after {
+
+    content: "";
+
+    height: 1px;
+
+    width: 35px;
+
+    background: var(--border);
+}
+
+
+/* =========================================================
+   CONTACT INTRO
+========================================================= */
+
+.contact-intro {
+
+    padding-top: 105px;
+
+    padding-bottom: 85px;
+
+    max-width: 1050px;
+}
+
+.contact-intro h1 {
+
+    font-size: clamp(48px, 7vw, 82px);
+
+    line-height: 1.06;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 25px;
+}
+
+.contact-intro p {
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+
+    font-weight: 300;
+
+    max-width: 430px;
+}
+
+
+/* =========================================================
+   CONTACT MAIN
+========================================================= */
+
+.contact-main {
+
+    padding-top: 20px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8%;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   CONTACT INFORMATION
+========================================================= */
+
+.contact-info {
+
+    max-width: 600px;
+}
+
+.info-item {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 24px 0;
+
+    border-bottom: 1px solid var(--border);
+
+    transition:
+        padding-left 0.3s ease,
+        color 0.25s ease;
+}
+
+.info-item:hover {
+
+    padding-left: 8px;
+
+    color: var(--accent);
+}
+
+.info-icon {
+
+    width: 22px;
+
+    padding-top: 4px;
+
+    font-size: 14px;
+
+    color: var(--accent);
+}
+
+.info-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.info-label {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--muted);
+}
+
+.info-value {
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 18px;
+
+    line-height: 1.65;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   SOCIAL MEDIA SECTION
+========================================================= */
+
+.social-section {
+
+    margin-top: 45px;
+}
+
+.social-label {
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 25px;
+}
+
+.social-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 22px 30px;
+}
+
+.social-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.social-link i {
+
+    font-size: 17px;
+
+    width: 22px;
+}
+
+.social-link div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.social-link span {
+
+    font-size: 13px;
+}
+
+.social-link small {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 300;
+}
+
+.social-link:hover {
+
+    color: var(--accent);
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   WEDDING IMAGE
+========================================================= */
+
+.contact-image {
+
+    width: 100%;
+}
+
+.image-wrapper {
+
+    overflow: hidden;
+
+    background: #e8e5de;
+}
+
+.image-wrapper img {
+
+    height: 650px;
+
+    transition:
+        transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.image-wrapper:hover img {
+
+    transform: scale(1.035);
+}
+
+
+/* =========================================================
+   LOCATION / GOOGLE MAP
+========================================================= */
+
+.location-section {
+
+    display: grid;
+
+    grid-template-columns: 1.7fr 0.8fr;
+
+    gap: 6%;
+
+    align-items: center;
+
+    padding-top: 80px;
+}
+
+.map-wrapper {
+
+    width: 100%;
+
+    height: 420px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+}
+
+.map-wrapper iframe {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: 0;
+}
+
+.location-info h2 {
+
+    font-size: clamp(38px, 4vw, 55px);
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+}
+
+.location-info p {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+    margin-bottom: 30px;
+}
+
+.map-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    font-size: 10px;
+
+    letter-spacing: 1.8px;
+
+    padding-bottom: 9px;
+
+    border-bottom: 1px solid var(--accent);
+
+    transition:
+        gap 0.25s ease,
+        color 0.25s ease;
+}
+
+.map-link:hover {
+
+    gap: 23px;
+
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   INQUIRY SECTION
+========================================================= */
+
+.inquiry-section {
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.4fr;
+
+    gap: 10%;
+
+    align-items: start;
+
+    padding-top: 90px;
+
+    padding-bottom: 120px;
+}
+
+.inquiry-intro h2 {
+
+    font-size: clamp(38px, 5vw, 58px);
+
+    line-height: 1.15;
+
+    margin-bottom: 25px;
+}
+
+.inquiry-intro p {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+
+    max-width: 330px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-container {
+
+    width: 100%;
+}
+
+form {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 35px;
+
+    row-gap: 30px;
+}
+
+.form-field {
+
+    position: relative;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.form-field.full {
+
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 0.8px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 300;
+
+    padding: 5px 0 13px;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+
+    color: #aaa89f;
+}
+
+.form-field select {
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+}
+
+.form-field select option {
+
+    background: var(--bg);
+
+    color: var(--text);
+}
+
+.form-field textarea {
+
+    resize: vertical;
+
+    min-height: 85px;
+
+    line-height: 1.7;
+}
+
+.form-field:focus-within {
+
+    border-bottom-color: var(--accent);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-button {
+
+    grid-column: 1 / -1;
+
+    justify-self: start;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 10px;
+
+    padding: 0 0 10px;
+
+    border: none;
+
+    border-bottom: 1px solid var(--accent);
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition:
+        gap 0.3s ease,
+        color 0.25s ease;
+}
+
+.submit-button:hover {
+
+    gap: 28px;
+
+    color: var(--accent);
+}
+
+.submit-button:disabled {
+
+    opacity: 0.5;
+
+    cursor: wait;
+}
+
+
+/* =========================================================
+   FORM MESSAGE
+========================================================= */
+
+.form-message {
+
+    grid-column: 1 / -1;
+
+    display: none;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    padding-top: 5px;
+}
+
+.form-message.success {
+
+    display: block;
+
+    color: var(--accent);
+}
+
+.form-message.error {
+
+    display: block;
+
+    color: #9b665d;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    padding: 30px 6%;
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    gap: 12px;
+}
+
+.footer-brand {
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.2px;
+
+    color: var(--muted);
+}
+
+.footer-brand span {
+
+    margin: 0 8px;
+
+    color: var(--border);
+}
+
+.footer-bottom {
+
+    font-family: 'DM Sans', sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 300;
+
+    letter-spacing: 0.8px;
+
+    color: #99978f;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+        transform 0.9s cubic-bezier(0.22,1,0.36,1);
+
+    will-change: opacity, transform;
+}
+
+.reveal.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.reveal-delay {
+
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity 1s cubic-bezier(0.22,1,0.36,1),
+        transform 1s cubic-bezier(0.22,1,0.36,1);
+
+    transition-delay: 0.12s;
+
+    will-change: opacity, transform;
+}
+
+.reveal-delay.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .reveal,
+    .reveal-delay {
+
+        opacity: 1;
+
+        transform: none;
+
+        transition: none;
+
+        will-change: auto;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    header {
+        height: 75px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-area {
+        gap: 10px;
+    }
+
+    nav {
+        gap: 0;
+    }
+
+    nav a {
+        padding: 10px 9px;
+
+        font-size: 10px;
+    }
+
+    .socials {
+
+        gap: 10px;
+
+        padding-left: 12px;
+    }
+
+    section {
+
+        padding-left: 6%;
+
+        padding-right: 6%;
+    }
+
+    .contact-main {
+
+        gap: 5%;
+    }
+
+    .image-wrapper img {
+
+        height: 550px;
+    }
+
+    .location-section {
+
+        grid-template-columns: 1fr;
+    }
+
+    .location-info {
+
+        max-width: 600px;
+    }
+
+    .inquiry-section {
+
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .menu-toggle {
+
+        display: block;
+    }
+
+
+    .nav-area {
+
+        display: flex;
+
+        position: absolute;
+
+        top: 75px;
+
+        left: 0;
+
+        width: 100%;
+
+        background: var(--bg);
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        max-height: 0;
+
+        padding: 0 6%;
+
+        opacity: 0;
+
+        overflow: hidden;
+
+        visibility: hidden;
+
+        transform: translateY(-12px);
+
+        border-bottom: 1px solid transparent;
+
+        transition:
+            max-height 0.65s cubic-bezier(0.22,1,0.36,1),
+            opacity 0.4s ease,
+            transform 0.55s cubic-bezier(0.22,1,0.36,1),
+            padding 0.5s ease,
+            visibility 0.65s,
+            border-color 0.4s ease;
+    }
+
+
+    .nav-area.active {
+
+        max-height: 420px;
+
+        padding: 25px 6% 30px;
+
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translateY(0);
+
+        border-bottom-color: var(--border);
+    }
+
+
+    nav {
+
+        width: 100%;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+    }
+
+
+    nav a {
+
+        width: fit-content;
+
+        text-align: center;
+
+        padding: 12px 22px;
+
+        font-size: 12px;
+
+        letter-spacing: 1.5px;
+
+        border: 1px solid transparent;
+
+        border-radius: 50px;
+
+        opacity: 0;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.4s ease,
+            transform 0.5s cubic-bezier(0.22,1,0.36,1),
+            border-color 0.2s ease;
+
+        transition-delay: 0s;
+    }
+
+
+    .nav-area.active nav a {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+
+    .nav-area.active nav a:nth-child(1) {
+        transition-delay: 0.10s;
+    }
+
+    .nav-area.active nav a:nth-child(2) {
+        transition-delay: 0.16s;
+    }
+
+    .nav-area.active nav a:nth-child(3) {
+        transition-delay: 0.22s;
+    }
+
+    .nav-area.active nav a:nth-child(4) {
+        transition-delay: 0.28s;
+    }
+
+
+    .socials {
+
+        border-left: none;
+
+        border-top: 1px solid var(--border);
+
+        padding: 20px 10px 0;
+
+        justify-content: center;
+    }
+
+
+    /* =========================
+       MOBILE CONTACT INTRO
+    ========================= */
+
+    .contact-intro {
+
+        padding-top: 80px;
+
+        padding-bottom: 60px;
+    }
+
+    .contact-intro h1 {
+
+        font-size: clamp(42px, 12vw, 62px);
+
+        line-height: 1.08;
+    }
+
+
+    /* =========================
+       MOBILE CONTACT MAIN
+    ========================= */
+
+    .contact-main {
+
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+
+        padding-top: 20px;
+    }
+
+
+    /* IMAGE FIRST ON MOBILE */
+
+    .contact-image {
+
+        order: -1;
+    }
+
+    .image-wrapper img {
+
+        height: 500px;
+    }
+
+
+    /* =========================
+       SOCIAL GRID
+    ========================= */
+
+    .social-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+
+    /* =========================
+       MAP
+    ========================= */
+
+    .location-section {
+
+        padding-top: 70px;
+
+        gap: 40px;
+    }
+
+    .map-wrapper {
+
+        height: 320px;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .inquiry-section {
+
+        padding-top: 80px;
+
+        padding-bottom: 90px;
+
+        gap: 45px;
+    }
+
+    form {
+
+        grid-template-columns: 1fr;
+
+        row-gap: 25px;
+    }
+
+    .form-field.full {
+
+        grid-column: auto;
+    }
+
+    .submit-button {
+
+        grid-column: auto;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+
+        padding: 24px 6%;
+
+        gap: 10px;
+    }
+
+    .footer-brand {
+
+        font-size: 10px;
+
+        letter-spacing: 1px;
+    }
+
+    .footer-bottom {
+
+        font-size: 8px;
+
+        letter-spacing: 0.6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+
+    <!-- LOGO -->
+
+    <a href="index.html" class="logo">
+
+        RASHMIKA VISUALS
+
+    </a>
+
+
+    <!-- MOBILE MENU -->
+
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="navArea">
+
+        ☰
+
+    </button>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="nav-area" id="navArea">
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#portfolio">
+                Portfolio
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="contact.html" class="active">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <!-- SOCIAL ICONS -->
+
+        <div class="socials">
+
+
+            <a
+                href="https://instagram.com/rashmika_visuals"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram">
+
+                <i class="fa-brands fa-instagram"></i>
+
+            </a>
+
+
+            <a
+                href="https://facebook.com/rashmika.visuals"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook">
+
+                <i class="fa-brands fa-facebook-f"></i>
+
+            </a>
+
+
+            <a
+                href="https://wa.me/94770633282"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+            </a>
+
+
+            <a
+                href="https://pinterest.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Pinterest">
+
+                <i class="fa-brands fa-pinterest-p"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     CONTACT INTRO
+========================================================= -->
+
+<section class="contact-intro reveal">
+
+
+    <div class="section-label">
+
+        CONTACT
+
+    </div>
+
+
+    <h1>
+
+        LET'S CREATE<br>
+        SOMETHING TIMELESS.
+
+    </h1>
+
+
+    <p>
+
+        For weddings, engagements, events,
+        and creative photography inquiries.
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONTACT INFORMATION + IMAGE
+========================================================= -->
+
+<section class="contact-main">
+
+
+    <!-- CONTACT INFORMATION -->
+
+    <div class="contact-info reveal">
+
+
+        <div class="section-label">
+
+            CONTACT
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <a
+            href="tel:+94770633282"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-solid fa-phone"></i>
+
+            </div>
+
+
+            <div class="info-content">
+
+                <span class="info-label">
+
+                    PHONE / WHATSAPP
+
+                </span>
+
+
+                <span class="info-value">
+
+                    +94 77 063 3282
+
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- EMAIL -->
+
+        <a
+            href="mailto:hello@rashmikavisuals.com"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-regular fa-envelope"></i>
+
+            </div>
+
+
+            <div class="info-content">
+
+                <span class="info-label">
+
+                    EMAIL
+
+                </span>
+
+
+                <span class="info-value">
+
+                    hello@rashmikavisuals.com
+
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- ADDRESS -->
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=Panviladuwa+Watta+Godakanda+Karapitiya+Galle+Sri+Lanka"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+
+            <div class="info-content">
+
+                <span class="info-label">
+
+                    ADDRESS
+
+                </span>
+
+
+                <span class="info-value">
+
+                    Panviladuwa Watta,<br>
+                    Godakanda, Karapitiya,<br>
+                    Galle, Sri Lanka
+
+                </span>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- SOCIAL MEDIA -->
+
+        <div class="social-section">
+
+
+            <div class="social-label">
+
+                FOLLOW THE JOURNEY
+
+            </div>
+
+
+            <div class="social-grid">
+
+
+                <!-- INSTAGRAM -->
+
+                <a
+                    href="https://instagram.com/rashmika_visuals"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-instagram"></i>
+
+
+                    <div>
+
+                        <span>
+                            Instagram
+                        </span>
+
+                        <small>
+                            @rashmika_visuals
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- FACEBOOK -->
+
+                <a
+                    href="https://facebook.com/rashmika.visuals"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-facebook-f"></i>
+
+
+                    <div>
+
+                        <span>
+                            Facebook
+                        </span>
+
+                        <small>
+                            facebook.com/rashmika.visuals
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- WHATSAPP -->
+
+                <a
+                    href="https://wa.me/94770633282"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+
+                    <div>
+
+                        <span>
+                            WhatsApp
+                        </span>
+
+                        <small>
+                            +94 77 063 3282
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- PINTEREST -->
+
+                <a
+                    href="https://pinterest.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-pinterest-p"></i>
+
+
+                    <div>
+
+                        <span>
+                            Pinterest
+                        </span>
+
+                        <small>
+                            Pinterest profile
+                        </small>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WEDDING PHOTO -->
+
+    <div class="contact-image reveal-delay">
+
+
+        <div class="image-wrapper">
+
+            <img
+                src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85"
+                alt="Wedding couple"
+                loading="lazy">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GOOGLE MAP
+========================================================= -->
+
+<section class="location-section reveal">
+
+
+    <div class="map-wrapper">
+
+
+        <iframe
+            src="https://www.google.com/maps?q=Panviladuwa+Watta,+Godakanda,+Karapitiya,+Galle,+Sri+Lanka&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Rashmika Visuals Location">
+        </iframe>
+
+
+    </div>
+
+
+
+    <div class="location-info">
+
+
+        <div class="section-label">
+
+            OUR LOCATION
+
+        </div>
+
+
+        <h2>
+
+            FIND US IN<br>
+            GALLE.
+
+        </h2>
+
+
+        <p>
+
+            Panviladuwa Watta,<br>
+            Godakanda, Karapitiya,<br>
+            Galle, Sri Lanka
+
+        </p>
+
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=Panviladuwa+Watta+Godakanda+Karapitiya+Galle+Sri+Lanka"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link">
+
+            VIEW ON GOOGLE MAPS
+
+            <span>↗</span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INQUIRY FORM
+========================================================= -->
+
+<section class="inquiry-section">
+
+
+    <!-- FORM INTRO -->
+
+    <div class="inquiry-intro reveal">
+
+
+        <div class="section-label">
+
+            SEND AN INQUIRY
+
+        </div>
+
+
+        <h2>
+
+            Tell me about<br>
+            your special day.
+
+        </h2>
+
+
+        <p>
+
+            I'd love to hear about your vision
+            and help create something beautiful
+            together.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- FORM -->
+
+    <div class="form-container reveal">
+
+
+        <!--
+        =====================================================
+        FORMSPREE
+
+        Replace YOUR_FORM_ID with your Formspree ID.
+
+        Example:
+
+        https://formspree.io/f/abcdwxyz
+
+        =====================================================
+        -->
+
+        <form
+            id="contactForm"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST">
+
+
+            <!-- NAME -->
+
+            <div class="form-field">
+
+                <label for="name">
+
+                    Name *
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    autocomplete="name"
+                    required>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-field">
+
+                <label for="email">
+
+                    Email *
+
+                </label>
+
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+
+
+            <!-- EVENT TYPE -->
+
+            <div class="form-field">
+
+                <label for="event">
+
+                    Event Type *
+
+                </label>
+
+
+                <select
+                    id="event"
+                    name="event_type"
+                    required>
+
+
+                    <option
+                        value=""
+                        selected
+                        disabled>
+
+                        Select an event type
+
+                    </option>
+
+
+                    <option value="Wedding">
+
+                        Wedding
+
+                    </option>
+
+
+                    <option value="Engagement">
+
+                        Engagement
+
+                    </option>
+
+
+                    <option value="Birthday">
+
+                        Birthday
+
+                    </option>
+
+
+                    <option value="Corporate / Event">
+
+                        Corporate / Event
+
+                    </option>
+
+
+                    <option value="Portrait">
+
+                        Portrait
+
+                    </option>
+
+
+                    <option value="Other">
+
+                        Other
+
+                    </option>
+
+
+                </select>
+
+            </div>
+
+
+
+            <!-- EVENT DATE -->
+
+            <div class="form-field">
+
+                <label for="date">
+
+                    Event Date *
+
+                </label>
+
+
+                <input
+                    type="date"
+                    id="date"
+                    name="event_date"
+                    required>
+
+            </div>
+
+
+
+            <!-- MESSAGE -->
+
+            <div class="form-field full">
+
+                <label for="message">
+
+                    Message *
+
+                </label>
+
+
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    placeholder="Tell me more about your event..."
+                    required></textarea>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-button"
+                id="submitButton">
+
+
+                <span id="submitText">
+
+                    SEND INQUIRY
+
+                </span>
+
+
+                <span>
+
+                    →
+
+                </span>
+
+            </button>
+
+
+
+            <!-- FORM MESSAGE -->
+
+            <div
+                class="form-message"
+                id="formMessage"
+                role="status">
+            </div>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        Rashmika Photography
+
+        <span>|</span>
+
+        Rashmika Visuals
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 Rashmika Visuals.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const navArea =
+    document.getElementById("navArea");
+
+
+/* CLOSE MENU */
+
+function closeMenu() {
+
+    navArea.classList.remove("active");
+
+    menuToggle.textContent = "☰";
+
+    menuToggle.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+}
+
+
+/* OPEN / CLOSE */
+
+menuToggle.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        navArea.classList.toggle("active");
+
+        const isOpen =
+            navArea.classList.contains("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuToggle.textContent =
+            isOpen ? "×" : "☰";
+
+    }
+);
+
+
+/* CLOSE WHEN CLICKING OUTSIDE */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const clickedInsideMenu =
+            navArea.contains(event.target);
+
+        const clickedMenuButton =
+            menuToggle.contains(event.target);
+
+
+        if (
+            navArea.classList.contains("active") &&
+            !clickedInsideMenu &&
+            !clickedMenuButton
+        ) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* CLOSE WHEN NAV LINK CLICKED */
+
+document
+    .querySelectorAll("nav a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                closeMenu();
+
+            }
+        );
+
+    });
+
+
+/* CLOSE WHEN DESKTOP */
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        if (window.innerWidth > 650) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal, .reveal-delay"
+    );
+
+
+const prefersReducedMotion =
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+
+if (prefersReducedMotion.matches) {
+
+    revealElements.forEach(element => {
+
+        element.classList.add("show");
+
+    });
+
+} else {
+
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12,
+
+                rootMargin:
+                    "0px 0px -40px 0px"
+            }
+
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+}
+
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+const contactForm =
+    document.getElementById(
+        "contactForm"
+    );
+
+const submitButton =
+    document.getElementById(
+        "submitButton"
+    );
+
+const submitText =
+    document.getElementById(
+        "submitText"
+    );
+
+const formMessage =
+    document.getElementById(
+        "formMessage"
+    );
+
+
+contactForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        /* LOADING */
+
+        submitButton.disabled = true;
+
+        submitText.textContent =
+            "SENDING...";
+
+        formMessage.className =
+            "form-message";
+
+        formMessage.textContent = "";
+
+
+        const formData =
+            new FormData(contactForm);
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    contactForm.action,
+                    {
+
+                        method: "POST",
+
+                        body: formData,
+
+                        headers: {
+
+                            "Accept":
+                                "application/json"
+
+                        }
+
+                    }
+                );
+
+
+            if (response.ok) {
+
+
+                /* SUCCESS */
+
+                formMessage.textContent =
+                    "Thank you. Your inquiry has been received. I'll get back to you soon.";
+
+                formMessage.className =
+                    "form-message success";
+
+
+                contactForm.reset();
+
+
+            } else {
+
+                throw new Error(
+                    "Form submission failed."
+                );
+
+            }
+
+
+        } catch(error) {
+
+
+            /* ERROR */
+
+            formMessage.textContent =
+                "Something went wrong. Please try again or contact me directly via WhatsApp.";
+
+            formMessage.className =
+                "form-message error";
+
+        }
+
+
+        /* RESTORE BUTTON */
+
+        submitButton.disabled = false;
+
+        submitText.textContent =
+            "SEND INQUIRY";
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
