@@ -27,8 +27,12 @@
       href="https://fonts.gstatic.com"
       crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
-      rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap"
+      rel="stylesheet">   -->
+     
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional" rel="stylesheet">
 
 
 <!-- =========================
@@ -44,6 +48,20 @@
 /* =========================================================
    GLOBAL
 ========================================================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
+}
+
+
+html {
+    scrollbar-gutter: stable;
+}
+
+
 
 :root {
     --bg: #f8f7f3;
@@ -75,6 +93,20 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+a,
+button,
+select,
+input,
+textarea,
+.portfolio-item {
+    -webkit-tap-highlight-color: rgba(180, 154, 118, 0.20);
+    tap-highlight-color: rgba(180, 154, 118, 0.20);
+}
+
+
+
+
 
 img {
     width: 100%;
@@ -113,6 +145,7 @@ header {
     z-index: 1000;
 
     border-bottom: 1px solid rgba(0,0,0,0.04);
+     box-sizing: border-box;  /*Height එක ඇතුළත padding එක තබා ගනී */
 }
 
 
@@ -1040,6 +1073,22 @@ footer {
 
 @media (max-width: 650px) {
 
+    .contact-image {
+        order: -1;
+        margin-left: -6.4vw;
+        margin-right: -6.4vw;
+        width: calc(100% + 12.8vw);
+    }
+
+    .image-wrapper img {
+        height: 400px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+
+
+
     .menu-toggle {
 
         display: block;
@@ -1368,7 +1417,7 @@ footer {
                 Home
             </a>
 
-            <a href="index.html#portfolio">
+            <a href="gallery.html">
                 Portfolio
             </a>
 
@@ -1386,51 +1435,18 @@ footer {
         <!-- SOCIAL ICONS -->
 
         <div class="socials">
-
-
-            <a
-                href="https://instagram.com/rashmika_visuals"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram">
-
+            <a href="https://instagram.com/rashmika_visuals" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
-
             </a>
-
-
-            <a
-                href="https://facebook.com/rashmika.visuals"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook">
-
+            <a href="https://facebook.com/rashmika.visuals" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
-
             </a>
-
-
-            <a
-                href="https://wa.me/94770633282"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp">
-
+            <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
-
             </a>
-
-
-            <a
-                href="https://pinterest.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Pinterest">
-
-                <i class="fa-brands fa-pinterest-p"></i>
-
+            <a href="tel:+94770633282" aria-label="Call Rashmika Photography">
+                <i class="fa-solid fa-phone"></i>
             </a>
-
         </div>
 
     </div>
@@ -2330,7 +2346,7 @@ if (prefersReducedMotion.matches) {
 
 
 
-```javascript
+
 /* =========================================================
    CONTACT FORM - WEB3FORMS
 ========================================================= */
@@ -2470,7 +2486,7 @@ contactForm.addEventListener(
 
     }
 );
-```
+
 
 
 </script>

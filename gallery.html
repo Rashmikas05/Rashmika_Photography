@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gallery | Rashmika Visuals | Wedding & Storytelling Photography</title>
+
+<link rel="icon" type="image/png" href="./Favilcon.png?v=2">
+<link rel="shortcut icon" href="./Favilcon.png?v=2">
+<link rel="apple-touch-icon" href="./Favilcon.png?v=2">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional" rel="stylesheet">
+
+<style>
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
+}
+
+html {
+    overflow-y: scroll; /* සෑම විටම vertical scrollbar එක සඳහා ඉඩ තබයි */
+    scroll-behavior: smooth;
+    scroll-padding-top: 82px;
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+
+:root {
+    --bg: #f8f7f3;
+    --text: #242421;
+    --muted: #77766f;
+    --border: #d9d7d0;
+    --accent: #b49a76;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 82px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+*, a, button, .masonry-item {
+    -webkit-tap-highlight-color: rgba(180, 154, 118, 0.25) !important;
+}
+
+
+
+a:focus, button:focus {
+    outline: none;
+}
+
+a:focus-visible, button:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 4px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+header {
+    width: 100%;
+    height: 82px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    letter-spacing: 3px;
+    white-space: nowrap;
+}
+
+.nav-area {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav a {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 11px 15px;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+
+nav a:hover, nav a.active {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding-left: 25px;
+    border-left: 1px solid var(--border);
+}
+
+.socials a {
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.socials a:hover {
+    color: var(--accent);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.gallery-hero {
+    padding: 70px 5% 40px;
+}
+
+.gallery-hero .section-label {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--muted);
+}
+
+.gallery-hero .section-label::after {
+    content: "";
+    height: 1px;
+    width: 35px;
+    background: var(--border);
+}
+
+.gallery-hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.15;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.masonry-container {
+    padding: 0 5% 100px;
+}
+
+.masonry-grid {
+    column-count: 4;
+    column-gap: 20px;
+}
+
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #e8e5de;
+    border-radius: 4px;
+}
+
+.masonry-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+}
+
+.masonry-item:hover img {
+    transform: scale(1.038);
+}
+
+.masonry-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.masonry-item:hover::after {
+    opacity: 1;
+}
+
+.item-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 2;
+    color: #ffffff;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.masonry-item:hover .item-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 18, 16, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    padding: 30px;
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 85vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.35s ease;
+}
+
+.lightbox-modal.active .lightbox-img {
+    transform: scale(1);
+}
+
+.lightbox-caption {
+    color: #e5e3dc;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 18px;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 32px;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2010;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+footer {
+    padding: 30px 6%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.footer-brand {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+}
+
+.footer-brand span {
+    margin: 0 8px;
+    color: var(--border);
+}
+
+.footer-bottom {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.8px;
+    color: #99978f;
+}
+
+@media (max-width: 1100px) {
+    .masonry-grid {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 800px) {
+    .masonry-grid {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 650px) {
+    header {
+        height: 75px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-area {
+        display: flex;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        align-items: stretch;
+        max-height: 0;
+        padding: 0 6%;
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transform: translateY(-12px);
+        border-bottom: 1px solid transparent;
+        transition: max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s ease, visibility 0.65s, border-color 0.4s ease;
+    }
+
+    .nav-area.active {
+        max-height: 420px;
+        padding: 25px 6% 30px;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        border-bottom-color: var(--border);
+    }
+
+    nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        width: fit-content;
+        text-align: center;
+        padding: 12px 22px;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        border: 1px solid transparent;
+        border-radius: 50px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+    }
+
+    .nav-area.active nav a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .socials {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 20px 10px 0;
+        justify-content: center;
+    }
+
+    .masonry-grid {
+        column-count: 1;
+        column-gap: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html#home" class="logo">
+        RASHMIKA VISUALS
+    </a>
+
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="navArea">
+        ☰
+    </button>
+
+    <div class="nav-area" id="navArea">
+        <nav>
+            <a href="index.html#home">Home</a>
+            <a href="gallery.html" class="active">Portfolio</a>
+            <a href="index.html#about">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="socials">
+            <a href="https://instagram.com/rashmika_visuals" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/rashmika.visuals" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="tel:+94770633282" aria-label="Call Rashmika Photography">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<section class="gallery-hero">
+    <div class="section-label">SELECTED WORK</div>
+    <h1>Stories captured honestly.</h1>
+</section>
+
+<section class="masonry-container">
+    <!-- JS එකෙන් Dynamic විදියට Photos ටික මෙතනට Load වෙනවා -->
+    <div class="masonry-grid" id="galleryGrid"></div>
+</section>
+
+<div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Photo Preview">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close photo preview">&times;</button>
+    <div class="lightbox-content">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Expanded photo preview">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-brand">
+        Rashmika Photography
+        <span>|</span>
+        Rashmika Visuals
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Rashmika Visuals. All Rights Reserved.
+    </div>
+</footer>
+
+<script>
+/* =========================
+   1. GALLERY DATA ARRAY
+========================= */
+
+const galleryData = [
+    {
+        src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85",
+        title: "Bridal Elegance",
+        alt: "Bride portrait"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=85",
+        title: "Mist & Mountains",
+        alt: "Mountain scenery"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=900&q=85",
+        title: "Endless Devotion",
+        alt: "Couple embracing"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85",
+        title: "Coastal Warmth",
+        alt: "Tropical coconut trees"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+        title: "Traditional Details",
+        alt: "Henna detail"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=85",
+        title: "Groom Solitude",
+        alt: "Groom portrait"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=900&q=85",
+        title: "Sunset Waters",
+        alt: "Serene sunset lake"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=900&q=85",
+        title: "Veil & Grace",
+        alt: "Bride veil close up"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=900&q=85",
+        title: "Nature Whispers",
+        alt: "Lush foliage macro"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=85",
+        title: "Night Lights",
+        alt: "Romantic courtyard lights"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85",
+        title: "Highland Romance",
+        alt: "Couple hilltop embrace"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+        title: "Heritage Vows",
+        alt: "Traditional saree portrait"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85",
+        title: "Shoreline Stroll",
+        alt: "Beach sunset stroll"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=85",
+        title: "Floral Symphony",
+        alt: "White floral bouquet"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85",
+        title: "Architectural Mood",
+        alt: "Vintage staircase shadow"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=85",
+        title: "Shadow Play",
+        alt: "Sunlight and shadow portrait"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=85",
+        title: "Valley Views",
+        alt: "Tea estate scenery"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=85",
+        title: "Candlelit Reception",
+        alt: "Intimate table decor"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=85",
+        title: "Gentleman",
+        alt: "Groom suit portrait"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=85",
+        title: "Golden Blossoms",
+        alt: "Golden hour blossoms"
+    }
+];
+
+/* =========================
+   2. RENDER GALLERY ITEMS
+========================= */
+const galleryGrid = document.getElementById("galleryGrid");
+
+function renderGallery() {
+    galleryGrid.innerHTML = ""; // Clear existing grid
+
+    galleryData.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "masonry-item reveal";
+        itemDiv.setAttribute("data-index", index);
+
+        itemDiv.innerHTML = `
+            <img src="${item.src}" alt="${item.alt || item.title}" loading="lazy">
+            <div class="item-caption">${item.title}</div>
+        `;
+
+        galleryGrid.appendChild(itemDiv);
+    });
+}
+
+// Gallery එක Screen එකට Render කිරීම
+renderGallery();
+
+/* =========================
+   3. MOBILE MENU TOGGLE
+========================= */
+const menuToggle = document.getElementById("menuToggle");
+const navArea = document.getElementById("navArea");
+
+function closeMenu() {
+    navArea.classList.remove("active");
+    menuToggle.textContent = "☰";
+    menuToggle.setAttribute("aria-expanded", "false");
+}
+
+menuToggle.addEventListener("click", function(event) {
+    event.stopPropagation();
+    navArea.classList.toggle("active");
+    const isOpen = navArea.classList.contains("active");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.textContent = isOpen ? "×" : "☰";
+});
+
+document.addEventListener("click", function(event) {
+    if (navArea.classList.contains("active") && !navArea.contains(event.target) && !menuToggle.contains(event.target)) {
+        closeMenu();
+    }
+});
+
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+});
+
+window.addEventListener("resize", function() {
+    if (window.innerWidth > 650) {
+        closeMenu();
+    }
+});
+
+/* =========================
+   4. SCROLL REVEAL ANIMATIONS
+========================= */
+function initScrollReveal() {
+    const revealElements = document.querySelectorAll(".reveal");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (prefersReducedMotion.matches) {
+        revealElements.forEach(element => element.classList.add("show"));
+    } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px"
+        });
+
+        revealElements.forEach((element, index) => {
+            const delay = (index % 4) * 0.12;
+            element.style.transitionDelay = `${delay}s`;
+            revealObserver.observe(element);
+        });
+    }
+}
+
+// Init animation after rendering photos
+initScrollReveal();
+
+/* =========================
+   5. LIGHTBOX MODAL INTERACTION
+========================= */
+const lightboxModal = document.getElementById("lightboxModal");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxCaption = document.getElementById("lightboxCaption");
+const lightboxClose = document.getElementById("lightboxClose");
+
+// Delegate click event to grid for lightbox
+galleryGrid.addEventListener("click", (e) => {
+    const item = e.target.closest(".masonry-item");
+    if (!item) return;
+
+    const index = item.getAttribute("data-index");
+    const photoData = galleryData[index];
+
+    if (photoData) {
+        lightboxImg.src = photoData.src;
+        lightboxImg.alt = photoData.alt || photoData.title;
+        lightboxCaption.textContent = photoData.title;
+        lightboxModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+});
+
+function closeLightbox() {
+    lightboxModal.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+
+lightboxModal.addEventListener("click", (e) => {
+    if (e.target === lightboxModal) {
+        closeLightbox();
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightboxModal.classList.contains("active")) {
+        closeLightbox();
+    }
+});
+</script>
+
+</body>
+</html>
+
