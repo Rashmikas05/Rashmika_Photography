@@ -280,7 +280,7 @@ section {
 
 .section-label {
 
-    font-size: 11px;
+    font-size: 12px;
 
     letter-spacing: 2px;
 
@@ -295,14 +295,18 @@ section {
     gap: 15px;
 }
 
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Label text එකයි ඉරි දෙකයි අතර පරතරය */
+}
+
+/* Before සහ After දෙකටම එකම ඉරේ styling දීම */
+.section-label::before,
 .section-label::after {
-
     content: "";
-
     height: 1px;
-
     width: 35px;
-
     background: var(--border);
 }
 
