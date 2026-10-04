@@ -1866,231 +1866,251 @@ footer {
 
 
 
-    <!-- FORM -->
+   <!-- FORM -->
 
-    <div class="form-container reveal">
+<div class="form-container reveal">
 
+    <form
+        id="contactForm"
+        action="https://api.web3forms.com/submit"
+        method="POST">
 
-        <!--
-        =====================================================
-        FORMSPREE
+        <!-- WEB3FORMS ACCESS KEY -->
 
-        Replace YOUR_FORM_ID with your Formspree ID.
+        <input
+            type="hidden"
+            name="access_key"
+            value="7ae635f1-433b-486e-987b-21fbeadb2953">
 
-        Example:
 
-        https://formspree.io/f/abcdwxyz
+        <!-- NAME -->
 
-        =====================================================
-        -->
+        <div class="form-field">
 
-        <form
-            id="contactForm"
-            action="https://formspree.io/f/YOUR_FORM_ID"
-            method="POST">
+            <label for="name">
 
+                Name *
 
-            <!-- NAME -->
+            </label>
 
-            <div class="form-field">
+            <input
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                required>
 
-                <label for="name">
+        </div>
 
-                    Name *
 
-                </label>
 
+        <!-- EMAIL -->
 
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    autocomplete="name"
-                    required>
+        <div class="form-field">
 
-            </div>
+            <label for="email">
 
+                Email *
 
+            </label>
 
-            <!-- EMAIL -->
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required>
 
-            <div class="form-field">
+        </div>
 
-                <label for="email">
 
-                    Email *
+            <!-- PHONE -->
 
-                </label>
+<div class="form-field">
 
+    <label for="phone">
 
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    autocomplete="email"
-                    required>
+        Phone Number *
 
-            </div>
+    </label>
 
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        autocomplete="tel"
+        placeholder="+94 XX XXX XXXX"
+        required>
 
+</div>
 
-            <!-- EVENT TYPE -->
 
-            <div class="form-field">
 
-                <label for="event">
 
-                    Event Type *
 
-                </label>
 
+        <!-- EVENT TYPE -->
 
-                <select
-                    id="event"
-                    name="event_type"
-                    required>
+        <div class="form-field">
 
+            <label for="event">
 
-                    <option
-                        value=""
-                        selected
-                        disabled>
+                Event Type *
 
-                        Select an event type
+            </label>
 
-                    </option>
+            <select
+                id="event"
+                name="event_type"
+                required>
 
+                <option
+                    value=""
+                    selected
+                    disabled>
 
-                    <option value="Wedding">
+                    Select an event type
 
-                        Wedding
+                </option>
 
-                    </option>
+                <option value="Wedding">
 
+                    Wedding
 
-                    <option value="Engagement">
+                </option>
 
-                        Engagement
+                <option value="Engagement">
 
-                    </option>
+                    Engagement
 
+                </option>
 
-                    <option value="Birthday">
+                <option value="Birthday">
 
-                        Birthday
+                    Birthday
 
-                    </option>
+                </option>
 
+                <option value="Corporate / Event">
 
-                    <option value="Corporate / Event">
+                    Corporate / Event
 
-                        Corporate / Event
+                </option>
 
-                    </option>
+                <option value="Portrait">
 
+                    Portrait
 
-                    <option value="Portrait">
+                </option>
 
-                        Portrait
+                <option value="Other">
 
-                    </option>
+                    Other
 
+                </option>
 
-                    <option value="Other">
+            </select>
 
-                        Other
+        </div>
 
-                    </option>
 
 
-                </select>
+        <!-- EVENT DATE -->
 
-            </div>
+        <div class="form-field">
 
+            <label for="date">
 
+                Event Date *
 
-            <!-- EVENT DATE -->
+            </label>
 
-            <div class="form-field">
+            <input
+                type="date"
+                id="date"
+                name="event_date"
+                required>
 
-                <label for="date">
+        </div>
 
-                    Event Date *
 
-                </label>
 
+        <!-- MESSAGE -->
 
-                <input
-                    type="date"
-                    id="date"
-                    name="event_date"
-                    required>
+        <div class="form-field full">
 
-            </div>
+            <label for="message">
 
+                Message *
 
+            </label>
 
-            <!-- MESSAGE -->
+            <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Tell me more about your event..."
+                required></textarea>
 
-            <div class="form-field full">
+        </div>
 
-                <label for="message">
 
-                    Message *
 
-                </label>
+        <!-- SUBJECT -->
 
+        <input
+            type="hidden"
+            name="subject"
+            value="New Photography Inquiry">
 
-                <textarea
-                    id="message"
-                    name="message"
-                    rows="4"
-                    placeholder="Tell me more about your event..."
-                    required></textarea>
 
-            </div>
+        <!-- FROM NAME -->
 
+        <input
+            type="hidden"
+            name="from_name"
+            value="Rashmika Photography Website">
 
 
-            <!-- SUBMIT -->
 
-            <button
-                type="submit"
-                class="submit-button"
-                id="submitButton">
+        <!-- SUBMIT -->
 
+        <button
+            type="submit"
+            class="submit-button"
+            id="submitButton">
 
-                <span id="submitText">
+            <span id="submitText">
 
-                    SEND INQUIRY
+                SEND INQUIRY
 
-                </span>
+            </span>
 
+            <span>
 
-                <span>
+                →
 
-                    →
+            </span>
 
-                </span>
+        </button>
 
-            </button>
 
 
+        <!-- FORM MESSAGE -->
 
-            <!-- FORM MESSAGE -->
+        <div
+            class="form-message"
+            id="formMessage"
+            role="status">
+        </div>
 
-            <div
-                class="form-message"
-                id="formMessage"
-                role="status">
-            </div>
 
+    </form>
 
-        </form>
-
-    </div>
+</div>
 
 </section>
+
 
 </main>
 
@@ -2310,39 +2330,38 @@ if (prefersReducedMotion.matches) {
 
 
 
+```javascript
 /* =========================================================
-   CONTACT FORM
+   CONTACT FORM - WEB3FORMS
 ========================================================= */
 
 const contactForm =
-    document.getElementById(
-        "contactForm"
-    );
+    document.getElementById("contactForm");
 
 const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
+    document.getElementById("submitButton");
 
 const submitText =
-    document.getElementById(
-        "submitText"
-    );
+    document.getElementById("submitText");
 
 const formMessage =
-    document.getElementById(
-        "formMessage"
-    );
+    document.getElementById("formMessage");
 
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
 
 contactForm.addEventListener(
     "submit",
-    async function(event) {
+    async function (event) {
 
         event.preventDefault();
 
 
-        /* LOADING */
+        /* =================================================
+           LOADING STATE
+        ================================================= */
 
         submitButton.disabled = true;
 
@@ -2355,37 +2374,46 @@ contactForm.addEventListener(
         formMessage.textContent = "";
 
 
+        /* =================================================
+           FORM DATA
+        ================================================= */
+
         const formData =
             new FormData(contactForm);
 
 
         try {
 
+            /* =============================================
+               SEND TO WEB3FORMS
+            ============================================= */
 
             const response =
                 await fetch(
                     contactForm.action,
                     {
-
                         method: "POST",
-
                         body: formData,
-
                         headers: {
-
                             "Accept":
                                 "application/json"
-
                         }
-
                     }
                 );
 
 
-            if (response.ok) {
+            const result =
+                await response.json();
 
 
-                /* SUCCESS */
+            /* =============================================
+               SUCCESS
+            ============================================= */
+
+            if (
+                response.ok &&
+                result.success
+            ) {
 
                 formMessage.textContent =
                     "Thank you. Your inquiry has been received. I'll get back to you soon.";
@@ -2394,22 +2422,33 @@ contactForm.addEventListener(
                     "form-message success";
 
 
+                /* Clear form */
+
                 contactForm.reset();
 
 
             } else {
 
                 throw new Error(
+                    result.message ||
                     "Form submission failed."
                 );
 
             }
 
 
-        } catch(error) {
+        } catch (error) {
 
 
-            /* ERROR */
+            /* =============================================
+               ERROR
+            ============================================= */
+
+            console.error(
+                "Web3Forms Error:",
+                error
+            );
+
 
             formMessage.textContent =
                 "Something went wrong. Please try again or contact me directly via WhatsApp.";
@@ -2420,7 +2459,9 @@ contactForm.addEventListener(
         }
 
 
-        /* RESTORE BUTTON */
+        /* =================================================
+           RESTORE BUTTON
+        ================================================= */
 
         submitButton.disabled = false;
 
@@ -2429,6 +2470,8 @@ contactForm.addEventListener(
 
     }
 );
+```
+
 
 </script>
 
