@@ -131,20 +131,14 @@ header {
 
     width: 100%;
     height: 82px;
-
     padding: 0 5%;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     background: var(--bg);
-
     position: sticky;
     top: 0;
-
     z-index: 1000;
-
     border-bottom: 1px solid rgba(0,0,0,0.04);
      box-sizing: border-box;  /*Height එක ඇතුළත padding එක තබා ගනී */
 }
@@ -155,11 +149,8 @@ header {
 .logo {
 
     font-family: 'Playfair Display', serif;
-
     font-size: 23px;
-
     letter-spacing: 3px;
-
     white-space: nowrap;
 }
 
@@ -169,37 +160,24 @@ header {
 ========================================================= */
 
 .nav-area {
-
     display: flex;
-
     align-items: center;
-
     gap: 25px;
 }
 
 nav {
-
     display: flex;
-
     align-items: center;
-
     gap: 8px;
 }
 
 nav a {
-
     font-size: 11px;
-
     letter-spacing: 1.2px;
-
     text-transform: uppercase;
-
     padding: 11px 15px;
-
     border: 1px solid transparent;
-
     border-radius: 50px;
-
     transition:
         border-color 0.18s ease,
         color 0.18s ease;
@@ -207,9 +185,7 @@ nav a {
 
 nav a:hover,
 nav a.active {
-
     border-color: var(--text);
-
     color: var(--text);
 }
 
@@ -219,33 +195,23 @@ nav a.active {
 ========================================================= */
 
 .socials {
-
     display: flex;
-
     align-items: center;
-
     gap: 17px;
-
     padding-left: 25px;
-
     border-left: 1px solid var(--border);
 }
 
 .socials a {
-
     font-size: 14px;
-
     font-weight: 600;
-
     transition:
         color 0.2s ease,
         transform 0.2s ease;
 }
 
 .socials a:hover {
-
     color: var(--accent);
-
     transform: translateY(-2px);
 }
 
@@ -255,17 +221,11 @@ nav a.active {
 ========================================================= */
 
 .menu-toggle {
-
     display: none;
-
     background: none;
-
     border: none;
-
     font-size: 26px;
-
     cursor: pointer;
-
     color: var(--text);
 }
 
@@ -275,24 +235,16 @@ nav a.active {
 ========================================================= */
 
 section {
-
     padding: 110px 7%;
 }
 
 .section-label {
-
     font-size: 12px;
-
     letter-spacing: 2px;
-
     text-transform: uppercase;
-
     margin-bottom: 35px;
-
     display: flex;
-
     align-items: center;
-
     gap: 16px;
 }
 
@@ -320,11 +272,8 @@ section {
 
     padding-top: 65px;
     padding-bottom: 35px;
-
     max-width: 100%;
-
     text-align: center;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -334,9 +283,7 @@ section {
 /* CONTACT LABEL */
 
 .contact-intro .section-label {
-
     justify-content: center;
-
     margin-bottom: 35px;
 }
 
@@ -344,15 +291,10 @@ section {
 /* MAIN TITLE */
 
 .contact-intro h1 {
-
     font-size: clamp(36px, 5vw, 62px);
-
     line-height: 1.06;
-
     letter-spacing: 1px;
-
     margin-bottom: 20px;
-
     text-align: center;
 }
 
@@ -360,19 +302,12 @@ section {
 /* SUB TEXT */
 
 .contact-intro p {
-
     color: var(--muted);
-
     font-size: 15px;
-
     line-height: 1.9;
-
     font-weight: 300;
-
     max-width: 520px;
-
     margin: 0 auto;
-
     text-align: center;
 }
 
@@ -381,15 +316,10 @@ section {
 ========================================================= */
 
 .contact-main {
-
     padding-top: 10px;
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 8%;
-
     align-items: start;
 }
 
@@ -404,68 +334,45 @@ section {
 }
 
 .info-item {
-
     display: flex;
-
     align-items: flex-start;
-
     gap: 20px;
-
     padding: 24px 0;
-
     border-bottom: 1px solid var(--border);
-
     transition:
         padding-left 0.3s ease,
         color 0.25s ease;
 }
 
 .info-item:hover {
-
     padding-left: 8px;
-
     color: var(--accent);
 }
 
 .info-icon {
-
     width: 22px;
-
     padding-top: 4px;
-
     font-size: 14px;
-
     color: var(--accent);
 }
 
 .info-content {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 9px;
 }
 
 .info-label {
-
     font-size: 9px;
-
     letter-spacing: 2px;
-
     text-transform: uppercase;
-
     color: var(--muted);
 }
 
 .info-value {
-
     font-family: 'Playfair Display', serif;
-
     font-size: 18px;
-
     line-height: 1.65;
-
     font-weight: 400;
 }
 
@@ -475,77 +382,55 @@ section {
 ========================================================= */
 
 .social-section {
-
     margin-top: 45px;
 }
 
 .social-label {
 
     font-size: 10px;
-
     letter-spacing: 2px;
-
     text-transform: uppercase;
-
     margin-bottom: 25px;
 }
 
 .social-grid {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 22px 30px;
 }
 
 .social-link {
-
     display: flex;
-
     align-items: center;
-
     gap: 15px;
-
     transition:
         color 0.25s ease,
         transform 0.25s ease;
 }
 
 .social-link i {
-
     font-size: 17px;
-
     width: 22px;
 }
 
 .social-link div {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 4px;
 }
 
 .social-link span {
-
     font-size: 13px;
 }
 
 .social-link small {
-
     color: var(--muted);
-
     font-size: 11px;
-
     font-weight: 300;
 }
 
 .social-link:hover {
-
     color: var(--accent);
-
     transform: translateX(5px);
 }
 
@@ -555,27 +440,21 @@ section {
 ========================================================= */
 
 .contact-image {
-
     width: 100%;
 }
 
 .image-wrapper {
-
     overflow: hidden;
-
     background: #e8e5de;
 }
 
 .image-wrapper img {
-
     height: 650px;
-
     transition:
         transform 1s cubic-bezier(.2,.7,.2,1);
 }
 
 .image-wrapper:hover img {
-
     transform: scale(1.035);
 }
 
@@ -585,83 +464,55 @@ section {
 ========================================================= */
 
 .location-section {
-
     display: grid;
-
     grid-template-columns: 1.7fr 0.8fr;
-
     gap: 6%;
-
     align-items: center;
-
     padding-top: 80px;
+    
 }
 
 .map-wrapper {
-
     width: 100%;
-
     height: 420px;
-
     overflow: hidden;
-
     border: 1px solid var(--border);
 }
 
 .map-wrapper iframe {
-
     width: 100%;
-
     height: 100%;
-
     border: 0;
 }
 
 .location-info h2 {
-
     font-size: clamp(38px, 4vw, 55px);
-
     line-height: 1.1;
-
     margin-bottom: 25px;
 }
 
 .location-info p {
-
     color: var(--muted);
-
     font-size: 14px;
-
     line-height: 1.9;
-
     margin-bottom: 30px;
 }
 
 .map-link {
-
     display: inline-flex;
-
     align-items: center;
-
     gap: 15px;
-
     font-size: 10px;
-
     letter-spacing: 1.8px;
-
     padding-bottom: 9px;
-
     border-bottom: 1px solid var(--accent);
-
     transition:
         gap 0.25s ease,
         color 0.25s ease;
 }
 
 .map-link:hover {
-
     gap: 23px;
-
     color: var(--accent);
 }
 
@@ -671,37 +522,24 @@ section {
 ========================================================= */
 
 .inquiry-section {
-
     display: grid;
-
     grid-template-columns: 0.8fr 1.4fr;
-
     gap: 10%;
-
     align-items: start;
-
     padding-top: 90px;
-
     padding-bottom: 120px;
 }
 
 .inquiry-intro h2 {
-
     font-size: clamp(38px, 5vw, 58px);
-
     line-height: 1.15;
-
     margin-bottom: 25px;
 }
 
 .inquiry-intro p {
-
     color: var(--muted);
-
     font-size: 14px;
-
     line-height: 1.9;
-
     max-width: 330px;
 }
 
@@ -711,43 +549,32 @@ section {
 ========================================================= */
 
 .form-container {
-
     width: 100%;
 }
 
 form {
 
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     column-gap: 35px;
-
     row-gap: 30px;
 }
 
 .form-field {
-
     position: relative;
-
     border-bottom: 1px solid var(--border);
 }
 
 .form-field.full {
-
     grid-column: 1 / -1;
 }
 
 .form-field label {
 
     display: block;
-
     margin-bottom: 9px;
-
     color: var(--muted);
-
-    font-size: 12px;
-
+    font-size: 14px;
     letter-spacing: 0.8px;
 }
 
@@ -756,57 +583,42 @@ form {
 .form-field textarea {
 
     width: 100%;
-
     border: none;
-
     outline: none;
-
     background: transparent;
-
     color: var(--text);
-
     font-family: 'DM Sans', sans-serif;
-
     font-size: 13px;
-
     font-weight: 300;
-
     padding: 5px 0 13px;
 }
 
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-
     color: #aaa89f;
 }
 
 .form-field select {
 
     cursor: pointer;
-
     appearance: none;
-
     -webkit-appearance: none;
 }
 
 .form-field select option {
 
     background: var(--bg);
-
     color: var(--text);
 }
 
 .form-field textarea {
 
     resize: vertical;
-
     min-height: 85px;
-
     line-height: 1.7;
 }
 
 .form-field:focus-within {
-
     border-bottom-color: var(--accent);
 }
 
@@ -818,51 +630,32 @@ form {
 .submit-button {
 
     grid-column: 1 / -1;
-
     justify-self: start;
-
     display: inline-flex;
-
     align-items: center;
-
     gap: 18px;
-
     margin-top: 10px;
-
     padding: 0 0 10px;
-
     border: none;
-
     border-bottom: 1px solid var(--accent);
-
     background: transparent;
-
     color: var(--text);
-
     font-family: 'DM Sans', sans-serif;
-
     font-size: 10px;
-
     letter-spacing: 2px;
-
     cursor: pointer;
-
     transition:
         gap 0.3s ease,
         color 0.25s ease;
 }
 
 .submit-button:hover {
-
     gap: 28px;
-
     color: var(--accent);
 }
 
 .submit-button:disabled {
-
     opacity: 0.5;
-
     cursor: wait;
 }
 
@@ -872,29 +665,20 @@ form {
 ========================================================= */
 
 .form-message {
-
     grid-column: 1 / -1;
-
     display: none;
-
     font-size: 12px;
-
     line-height: 1.7;
-
     padding-top: 5px;
 }
 
 .form-message.success {
-
     display: block;
-
     color: var(--accent);
 }
 
 .form-message.error {
-
     display: block;
-
     color: #9b665d;
 }
 
@@ -906,52 +690,36 @@ form {
 footer {
 
     padding: 30px 6%;
-
     border-top: 1px solid var(--border);
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
-
     text-align: center;
-
     gap: 12px;
 }
 
 .footer-brand {
 
     font-family: 'DM Sans', sans-serif;
-
     font-size: 14px;
-
     font-weight: 500;
-
     letter-spacing: 1.2px;
-
     color: var(--muted);
 }
 
 .footer-brand span {
 
     margin: 0 8px;
-
     color: var(--border);
 }
 
 .footer-bottom {
 
     font-family: 'DM Sans', sans-serif;
-
     font-size: 9px;
-
     font-weight: 300;
-
     letter-spacing: 0.8px;
-
     color: #99978f;
 }
 
@@ -963,49 +731,38 @@ footer {
 .reveal {
 
     opacity: 0;
-
     transform: translateY(45px);
-
     transition:
         opacity 0.9s cubic-bezier(0.22,1,0.36,1),
         transform 0.9s cubic-bezier(0.22,1,0.36,1);
-
     will-change: opacity, transform;
 }
 
 .reveal.show {
-
     opacity: 1;
-
     transform: translateY(0);
 }
 
 .reveal-delay {
-
     opacity: 0;
-
     transform: translateY(45px);
-
     transition:
         opacity 1s cubic-bezier(0.22,1,0.36,1),
         transform 1s cubic-bezier(0.22,1,0.36,1);
 
     transition-delay: 0.12s;
-
     will-change: opacity, transform;
 }
 
 .reveal-delay.show {
-
     opacity: 1;
-
     transform: translateY(0);
 }
 
 
-/* =========================================================
+/* =========================================================================================================================
    ACCESSIBILITY
-========================================================= */
+========================================================================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1015,13 +772,9 @@ footer {
 
     .reveal,
     .reveal-delay {
-
         opacity: 1;
-
         transform: none;
-
         transition: none;
-
         will-change: auto;
     }
 }
@@ -1051,48 +804,37 @@ footer {
 
     nav a {
         padding: 10px 9px;
-
         font-size: 10px;
     }
 
     .socials {
-
         gap: 10px;
-
         padding-left: 12px;
     }
 
     section {
-
         padding-left: 6%;
-
         padding-right: 6%;
     }
 
     .contact-main {
-
         gap: 5%;
     }
 
     .image-wrapper img {
-
         height: 550px;
     }
 
     .location-section {
-
         grid-template-columns: 1fr;
     }
 
     .location-info {
-
         max-width: 600px;
     }
 
     .inquiry-section {
-
         grid-template-columns: 1fr;
-
         gap: 55px;
     }
 }
@@ -1117,9 +859,6 @@ footer {
         object-fit: cover;
     }
 
-
-
-
     .menu-toggle {
 
         display: block;
@@ -1127,37 +866,21 @@ footer {
 
 
     .nav-area {
-
         display: flex;
-
         position: absolute;
-
         top: 75px;
-
         left: 0;
-
         width: 100%;
-
         background: var(--bg);
-
         flex-direction: column;
-
         align-items: stretch;
-
         max-height: 0;
-
         padding: 0 6%;
-
         opacity: 0;
-
         overflow: hidden;
-
         visibility: hidden;
-
         transform: translateY(-12px);
-
         border-bottom: 1px solid transparent;
-
         transition:
             max-height 0.65s cubic-bezier(0.22,1,0.36,1),
             opacity 0.4s ease,
@@ -1171,15 +894,10 @@ footer {
     .nav-area.active {
 
         max-height: 420px;
-
         padding: 25px 6% 30px;
-
         opacity: 1;
-
         visibility: visible;
-
         transform: translateY(0);
-
         border-bottom-color: var(--border);
     }
 
@@ -1187,55 +905,35 @@ footer {
     nav {
 
         width: 100%;
-
         display: flex;
-
         flex-direction: column;
-
         align-items: center;
-
         justify-content: center;
-
         gap: 8px;
     }
 
 
     nav a {
-
         width: fit-content;
-
         text-align: center;
-
         padding: 12px 22px;
-
         font-size: 12px;
-
         letter-spacing: 1.5px;
-
         border: 1px solid transparent;
-
         border-radius: 50px;
-
         opacity: 0;
-
         transform: translateY(-10px);
-
         transition:
             opacity 0.4s ease,
             transform 0.5s cubic-bezier(0.22,1,0.36,1),
             border-color 0.2s ease;
-
         transition-delay: 0s;
     }
 
-
     .nav-area.active nav a {
-
         opacity: 1;
-
         transform: translateY(0);
     }
-
 
     .nav-area.active nav a:nth-child(1) {
         transition-delay: 0.10s;
@@ -1255,11 +953,8 @@ footer {
 
 
     .socials {
-
         border-left: none;
-
         border-top: 1px solid var(--border);
-
         padding: 20px 10px 0;
         display: flex;
         justify-content: center;
@@ -1272,37 +967,26 @@ footer {
 ========================= */
 
 .contact-intro {
-
     padding-top: 80px;
     padding-bottom: 70px;
-
     text-align: center;
 }
 
 .contact-intro .section-label {
-
     justify-content: center;
-
     margin-bottom: 28px;
 }
 
 .contact-intro h1 {
-
     font-size: clamp(42px, 12vw, 62px);
-
     line-height: 1.08;
-
     text-align: center;
 }
 
 .contact-intro p {
-
     max-width: 360px;
-
     margin: 0 auto;
-
     text-align: center;
-
     font-size: 14px;
 }
 
@@ -1312,24 +996,20 @@ footer {
     ========================= */
 
     .contact-main {
-
         grid-template-columns: 1fr;
-
         gap: 55px;
-
         padding-top: 20px;
+       
     }
 
 
     /* IMAGE FIRST ON MOBILE */
 
     .contact-image {
-
         order: -1;
     }
 
     .image-wrapper img {
-
         height: 500px;
     }
 
@@ -1339,9 +1019,7 @@ footer {
     ========================= */
 
     .social-grid {
-
         grid-template-columns: 1fr;
-
         gap: 20px;
     }
 
@@ -1351,9 +1029,7 @@ footer {
     ========================= */
 
     .location-section {
-
         padding-top: 70px;
-
         gap: 40px;
     }
 
@@ -1362,24 +1038,25 @@ footer {
         height: 320px;
     }
 
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+
+
 
     /* =========================
        FORM
     ========================= */
 
     .inquiry-section {
-
         padding-top: 80px;
-
         padding-bottom: 90px;
-
         gap: 45px;
     }
 
     form {
-
         grid-template-columns: 1fr;
-
         row-gap: 25px;
     }
 
@@ -1397,7 +1074,7 @@ footer {
         font-size: 14px; 
         font-weight: 400; 
         margin-bottom: 7px;
-
+    }
 
 
     /* =========================
@@ -1407,21 +1084,17 @@ footer {
     footer {
 
         padding: 24px 6%;
-
         gap: 10px;
     }
 
     .footer-brand {
 
         font-size: 10px;
-
         letter-spacing: 1px;
     }
 
     .footer-bottom {
-
         font-size: 8px;
-
         letter-spacing: 0.6px;
     }
 
@@ -1468,10 +1141,7 @@ footer {
     <!-- NAVIGATION -->
 
     <div class="nav-area" id="navArea">
-
-
         <nav>
-
             <a href="index.html">
                 Home
             </a>
@@ -1526,8 +1196,6 @@ footer {
 ========================================================= -->
 
 <section class="contact-intro reveal">
-
-
     <div class="section-label">
 
         CONTACT
@@ -1543,10 +1211,8 @@ footer {
 
 
     <p>
-
         For weddings, engagements, events,
         and creative photography inquiries.
-
     </p>
 
 </section>
@@ -1559,18 +1225,12 @@ footer {
 
 <section class="contact-main">
 
-
     <!-- CONTACT INFORMATION -->
-
     <div class="contact-info reveal">
 
-
         <div class="section-label">
-
             CONTACT
-
         </div>
-
 
         <!-- PHONE -->
 
@@ -1587,22 +1247,16 @@ footer {
 
 
             <div class="info-content">
-
                 <span class="info-label">
-
                     PHONE / WHATSAPP
 
                 </span>
 
 
                 <span class="info-value">
-
                     +94 77 063 3282
-
                 </span>
-
             </div>
-
         </a>
 
 
@@ -1632,12 +1286,9 @@ footer {
 
                 <span class="info-value">
 
-                    hello@rashmikavisuals.com
-
+                    rushmikaphoto@gmail.com
                 </span>
-
             </div>
-
         </a>
 
 
@@ -1659,11 +1310,8 @@ footer {
 
 
             <div class="info-content">
-
                 <span class="info-label">
-
                     ADDRESS
-
                 </span>
 
 
@@ -1674,9 +1322,7 @@ footer {
                     Galle, Sri Lanka
 
                 </span>
-
             </div>
-
         </a>
 
 
@@ -1685,11 +1331,8 @@ footer {
 
         <div class="social-section">
 
-
             <div class="social-label">
-
                 FOLLOW THE JOURNEY
-
             </div>
 
 
@@ -1709,7 +1352,6 @@ footer {
 
 
                     <div>
-
                         <span>
                             Instagram
                         </span>
@@ -1717,9 +1359,7 @@ footer {
                         <small>
                             @rashmika_Photography
                         </small>
-
                     </div>
-
                 </a>
 
 
@@ -1763,7 +1403,6 @@ footer {
 
                     <i class="fa-brands fa-whatsapp"></i>
 
-
                     <div>
 
                         <span>
@@ -1773,9 +1412,7 @@ footer {
                         <small>
                             +94 77 063 3282
                         </small>
-
                     </div>
-
                 </a>
 
 
@@ -2078,13 +1715,10 @@ footer {
                 </option>
 
                 <option value="Other">
-
                     Other
 
                 </option>
-
             </select>
-
         </div>
 
 
@@ -2092,7 +1726,6 @@ footer {
         <!-- EVENT DATE -->
 
         <div class="form-field">
-
             <label for="date">
 
                 Event Date *
