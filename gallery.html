@@ -26,11 +26,11 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
+    z-index: 1000;
 }
 
 html {
-    overflow-y: scroll; /* සෑම විටම vertical scrollbar එක සඳහා ඉඩ තබයි */
+    overflow-y: scroll;
     scroll-behavior: smooth;
     scroll-padding-top: 82px;
 }
@@ -501,10 +501,10 @@ footer {
         </nav>
 
         <div class="socials">
-            <a href="https://instagram.com/rashmika_visuals" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="https://facebook.com/rashmika.visuals" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <a href="https://www.facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
             </a>
             <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -523,7 +523,7 @@ footer {
 </section>
 
 <section class="masonry-container">
-    <!-- JS එකෙන් Dynamic විදියට Photos ටික මෙතනට Load වෙනවා -->
+  
     <div class="masonry-grid" id="galleryGrid"></div>
 </section>
 
@@ -727,7 +727,7 @@ function renderGallery() {
     });
 }
 
-// Gallery එක Screen එකට Render කිරීම
+// Gallery rendering to screen
 renderGallery();
 
 /* =========================

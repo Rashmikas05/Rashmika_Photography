@@ -50,7 +50,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
+    z-index: 1000; 
 }
 
 
@@ -135,7 +135,7 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.04);
-    box-sizing: border-box; /*  Height එක ඇතුළත padding එක තබා ගනී */
+    box-sizing: border-box; 
 }
 
 .logo {
@@ -770,17 +770,17 @@ nav a {
 
 }
 
-/* Mobile Devices වලට පමණක් අදාළ වන CSS (Width එක 768px හෝ ඊට අඩු විට) */
+
 @media screen and (max-width: 768px) {
     
-    /* Grid එක Single Column Flex box එකක් බවට පත් කිරීම */
+    
     .portfolio-grid {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Item අතර පරතරය */
+        gap: 20px; 
     }
 
-    /* Column div එකේ display එක block කිරීම */
+   
     .portfolio-column {
         display: flex;
         flex-direction: column;
@@ -853,7 +853,7 @@ nav a {
             <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="https://facebook.com/rashmika.visuals" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <a href="https://facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
             </a>
             <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -1268,20 +1268,13 @@ if (prefersReducedMotion.matches) {
     const revealObserver = new IntersectionObserver(
 
         (entries, observer) => {
-
             entries.forEach(entry => {
-
                 if (entry.isIntersecting) {
-
                     entry.target.classList.add("show");
-
                     // Animate only once
-
                     observer.unobserve(entry.target);
-
                 }
-
-            });
+           });
 
         },
 
@@ -1294,7 +1287,6 @@ if (prefersReducedMotion.matches) {
 
 
     revealElements.forEach(element => {
-
         revealObserver.observe(element);
 
     });
