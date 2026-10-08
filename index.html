@@ -50,7 +50,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
+    z-index: 1000; 
 }
 
 
@@ -135,7 +135,7 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.04);
-    box-sizing: border-box; /*  Height එක ඇතුළත padding එක තබා ගනී */
+    box-sizing: border-box; 
 }
 
 .logo {
@@ -340,15 +340,15 @@ section {
 }
 
 .portfolio-item.tall img {
-    height: 530px;
+    height: 700px;
 }
 
 .portfolio-item.medium img {
-    height: 300px;
+    height: 400px;
 }
 
 .portfolio-item.large img {
-    height: 530px;
+    height: 700px;
 }
 
 .portfolio-item::after {
@@ -770,17 +770,17 @@ nav a {
 
 }
 
-/* Mobile Devices වලට පමණක් අදාළ වන CSS (Width එක 768px හෝ ඊට අඩු විට) */
+
 @media screen and (max-width: 768px) {
     
-    /* Grid එක Single Column Flex box එකක් බවට පත් කිරීම */
+    
     .portfolio-grid {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Item අතර පරතරය */
+        gap: 20px; 
     }
 
-    /* Column div එකේ display එක block කිරීම */
+   
     .portfolio-column {
         display: flex;
         flex-direction: column;
@@ -853,7 +853,7 @@ nav a {
             <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="https://facebook.com/rashmika.visuals" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <a href="https://facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
             </a>
             <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -920,7 +920,7 @@ nav a {
             <div class="portfolio-item tall reveal">
 
                 <img
-                    src="https://pub-3adfe46346ca48c5ad54854e87810b03.r2.dev/rashmikaPhoto/DSC00955-v2.jpg"
+                    src="https://image.rashmikaphotography.com/rashmikaPhoto/sri-lankan-wedding-couple-portrait_rashmika_photography.webp",
                     alt="Wedding photography"
                     loading="lazy">
 
@@ -936,7 +936,7 @@ nav a {
         <div class="portfolio-column">
             <div class="portfolio-item medium reveal reveal-delay-1">
                 <img
-                    src="https://pub-3adfe46346ca48c5ad54854e87810b03.r2.dev/rashmikaPhoto/DSC05754.jpg"
+                    src="https://image.rashmikaphotography.com/rashmikaPhoto/rashmika-photography-event-photography-random-moments.webp"
                     alt="Engagement photography"
                     loading="lazy">
 
@@ -949,7 +949,7 @@ nav a {
             <div class="portfolio-item medium reveal reveal-delay-2">
 
                 <img
-                    src="https://pub-3adfe46346ca48c5ad54854e87810b03.r2.dev/rashmikaPhoto/DSC01125.jpg"
+                    src="https://image.rashmikaphotography.com/rashmikaPhoto/rashmika-photography-wedding-photography-couple-preshoot-lovely.webp"
                     alt="Portrait photography"
                     loading="lazy">
 
@@ -965,7 +965,7 @@ nav a {
         <div class="portfolio-column">
             <div class="portfolio-item large reveal reveal-delay-1">
                 <img
-                    src="https://pub-3adfe46346ca48c5ad54854e87810b03.r2.dev/rashmikaPhoto/6.jpg"
+                    src="https://image.rashmikaphotography.com/rashmikaPhoto/rashmika_photography_beach_portrait.webp"
                     alt="Event photography"
                     loading="lazy">
 
@@ -1268,20 +1268,13 @@ if (prefersReducedMotion.matches) {
     const revealObserver = new IntersectionObserver(
 
         (entries, observer) => {
-
             entries.forEach(entry => {
-
                 if (entry.isIntersecting) {
-
                     entry.target.classList.add("show");
-
                     // Animate only once
-
                     observer.unobserve(entry.target);
-
                 }
-
-            });
+           });
 
         },
 
@@ -1294,7 +1287,6 @@ if (prefersReducedMotion.matches) {
 
 
     revealElements.forEach(element => {
-
         revealObserver.observe(element);
 
     });
