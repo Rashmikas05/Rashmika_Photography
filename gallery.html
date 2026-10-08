@@ -208,13 +208,12 @@ nav a:hover, nav a.active {
 }
 
 .masonry-grid {
-    column-count: 4;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    grid-auto-rows: 10px;
 }
-
 .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 20px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -383,15 +382,16 @@ footer {
 
 @media (max-width: 1100px) {
     .masonry-grid {
-        column-count: 3;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 800px) {
     .masonry-grid {
-        column-count: 2;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
+
 
 @media (max-width: 650px) {
     header {
@@ -469,9 +469,8 @@ footer {
     }
 
     .masonry-grid {
-        column-count: 1;
-        column-gap: 0;
-    }
+    grid-template-columns: 1fr;
+}
 }
 </style>
 </head>
@@ -554,152 +553,152 @@ footer {
 
 const galleryData = [
     {
-        src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1000.webp",
         title: "Bridal Elegance",
         alt: "Bride portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1001.webp",
         title: "Mist & Mountains",
         alt: "Mountain scenery"
     },
     {
-        src: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1002.webp",
         title: "Endless Devotion",
         alt: "Couple embracing"
     },
     {
-        src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1003.webp",
         title: "Coastal Warmth",
         alt: "Tropical coconut trees"
     },
     {
-        src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1004.webp",
         title: "Traditional Details",
         alt: "Henna detail"
     },
     {
-        src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1005.webp",
         title: "Groom Solitude",
         alt: "Groom portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1006.webp",
         title: "Sunset Waters",
         alt: "Serene sunset lake"
     },
     {
-        src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1007.webp",
         title: "Veil & Grace",
         alt: "Bride veil close up"
     },
     {
-        src: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1008.webp",
         title: "Nature Whispers",
         alt: "Lush foliage macro"
     },
     {
-        src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1009.webp",
         title: "Night Lights",
         alt: "Romantic courtyard lights"
     },
     {
-        src: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1011.webp",
         title: "Highland Romance",
         alt: "Couple hilltop embrace"
     },
     {
-        src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1012.webp",
         title: "Heritage Vows",
         alt: "Traditional saree portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1013.webp",
         title: "Shoreline Stroll",
         alt: "Beach sunset stroll"
     },
     {
-        src: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1014.webp",
         title: "Floral Symphony",
         alt: "White floral bouquet"
     },
     {
-        src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1015.webp",
         title: "Architectural Mood",
         alt: "Vintage staircase shadow"
     },
     {
-        src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1032.webp",
         title: "Shadow Play",
         alt: "Sunlight and shadow portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1016.webp",
         title: "Valley Views",
         alt: "Tea estate scenery"
     },
     {
-        src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1017.webp",
         title: "Candlelit Reception",
         alt: "Intimate table decor"
     },
     {
-        src: "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1019.webp",
         title: "Gentleman",
         alt: "Groom suit portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1020.webp",
         title: "Golden Blossoms",
         alt: "Golden hour blossoms"
     },
     {
-        src: "https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21b?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1021.webp",
         title: "Wedding Glow",
         alt: "Wedding couple portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1022.webp",
         title: "Celebration",
         alt: "Wedding celebration"
     },
     {
-        src: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1023.webp",
         title: "Bridal Beauty",
         alt: "Bridal beauty portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1024.webp",
         title: "Golden Hour",
         alt: "Golden hour couple shoot"
     },
     {
-        src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1025.webp",
         title: "Forever Together",
         alt: "Couple holding hands"
     },
     {
-        src: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1026.webp",
         title: "Wedding Story",
         alt: "Wedding storytelling"
     },
     {
-        src: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1027.webp",
         title: "Romantic Evening",
         alt: "Romantic evening portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1028.webp",
         title: "Dreamy Moments",
         alt: "Dreamy wedding portrait"
     },
     {
-        src: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1029.webp",
         title: "Elegant Bride",
         alt: "Elegant bride photo"
     },
     {
-        src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=85",
+        src: "https://image.rashmikaphotography.com/imageThumbnail/Untitled-1031.webp",
         title: "Cherished Memory",
         alt: "Wedding memory portrait"
     }
@@ -727,8 +726,43 @@ function renderGallery() {
     });
 }
 
-// Gallery එක Screen එකට Render කිරීම
+// Gallery for rendaring to sreen
 renderGallery();
+
+
+function resizeMasonryItems() {
+    const grid = document.querySelector(".masonry-grid");
+
+    const rowHeight = parseInt(
+        getComputedStyle(grid).getPropertyValue("grid-auto-rows")
+    );
+
+    const rowGap = parseInt(
+        getComputedStyle(grid).getPropertyValue("gap")
+    );
+
+    grid.querySelectorAll(".masonry-item").forEach(item => {
+        const img = item.querySelector("img");
+
+        const resizeItem = () => {
+            const rowSpan = Math.ceil(
+                (img.getBoundingClientRect().height + rowGap) /
+                (rowHeight + rowGap)
+            );
+
+            item.style.gridRowEnd = `span ${rowSpan}`;
+        };
+
+        if (img.complete) {
+            resizeItem();
+        } else {
+            img.addEventListener("load", resizeItem);
+        }
+    });
+}
+
+window.addEventListener("load", resizeMasonryItems);
+window.addEventListener("resize", resizeMasonryItems);
 
 /* =========================
    3. MOBILE MENU TOGGLE
