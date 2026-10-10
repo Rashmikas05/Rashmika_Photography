@@ -806,6 +806,164 @@ nav a {
 }
 
 
+
+/* ---------- 2) MOMENTS THAT MATTER ---------- */
+
+.moments-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 70px;
+}
+
+.moments-head h2 {
+    font-size: clamp(34px, 5vw, 55px);
+    line-height: 1.15;
+}
+
+.moments-head .story-link {
+    margin-top: 0;
+    white-space: nowrap;
+}
+
+.moments-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 0.85fr;
+    gap: 4%;
+    align-items: start;
+}
+
+.moment {
+    margin: 0;
+}
+
+/* staggered vertical rhythm */
+.moment:nth-child(2) {
+    margin-top: 110px;
+}
+
+.moment:nth-child(3) {
+    margin-top: 40px;
+}
+
+.moment-frame {
+    overflow: hidden;
+    background: #e8e5de;
+}
+
+.moment-frame img {
+    height: 100%;
+    transition: transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.moment:nth-child(1) .moment-frame { aspect-ratio: 3 / 4; }
+.moment:nth-child(2) .moment-frame { aspect-ratio: 4 / 5; }
+.moment:nth-child(3) .moment-frame { aspect-ratio: 2 / 3; }
+
+.moment figcaption {
+    margin-top: 18px;
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+}
+
+.moment figcaption span {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--accent);
+}
+
+/* hover effect only on devices that truly hover */
+@media (hover: hover) {
+    .moment:hover .moment-frame img {
+        transform: scale(1.05);
+    }
+}
+
+
+/* ---------- NEW SECTIONS: RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+
+    .story {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .story-content {
+        max-width: 560px;
+    }
+
+    .moments-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .moment:nth-child(1) { grid-column: 1 / -1; }
+    .moment:nth-child(1) .moment-frame { aspect-ratio: 4 / 3; }
+    .moment:nth-child(2) { margin-top: 0; }
+    .moment:nth-child(3) { margin-top: 50px; }
+
+}
+
+@media (max-width: 600px) {
+
+    .story-media {
+        aspect-ratio: 4 / 5;
+    }
+
+    .moments-head {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 45px;
+    }
+
+    .moments-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .moment:nth-child(n) { margin-top: 0; }
+
+    /* gentle stagger kept on mobile */
+    .moment:nth-child(2) { width: 85%; margin-left: auto; }
+    .moment:nth-child(1) .moment-frame,
+    .moment:nth-child(2) .moment-frame,
+    .moment:nth-child(3) .moment-frame { aspect-ratio: 4 / 5; }
+
+}
+
+/* Reduced motion: no zoom, no hover scaling */
+@media (prefers-reduced-motion: reduce) {
+
+    .story-media img {
+        transform: none;
+        transition: none;
+        will-change: auto;
+    }
+
+    .moment-frame img,
+    .moment:hover .moment-frame img {
+        transform: none;
+        transition: none;
+    }
+
+}
+
+
+
+
+
+
+
+
+
 </style>
 
 </head>
@@ -861,6 +1019,7 @@ nav a {
             </a>
             <a href="tel:+94770633282" aria-label="Call Rashmika Photography">
                 <i class="fa-solid fa-phone"></i>
+
             </a>
         </div>
 
@@ -978,6 +1137,81 @@ nav a {
 </section>
 
 
+
+<!-- =========================
+     NEW: MOMENTS THAT MATTER
+========================= -->
+
+<section class="moments" id="moments" aria-labelledby="moments-heading">
+
+    <div class="moments-head reveal">
+        <div>
+            <div class="section-label">
+                MOMENTS THAT MATTER
+            </div>
+            <h2 id="moments-heading">
+                The Details You<br>Will Never Forget.
+            </h2>
+        </div>
+
+        <a href="gallery.html" class="story-link">
+            SEE MORE <span>⟶</span>
+        </a>
+    </div>
+
+    <div class="moments-grid">
+
+        <!-- REPLACE the three image URLs below with your own photographs -->
+        <figure class="moment reveal">
+            <div class="moment-frame">
+                <img
+                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=85"
+                    alt="Candid laughter between a bride and her bridesmaids"
+                    width="1000"
+                    height="1333"
+                    loading="lazy">
+            </div>
+            <figcaption><span>01</span> Candid joy, exactly as it happened.</figcaption>
+        </figure>
+
+        <figure class="moment reveal reveal-delay-1">
+            <div class="moment-frame">
+                <img
+                    src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=900&q=85"
+                    alt="Intimate portrait of a couple holding each other close"
+                    width="900"
+                    height="1125"
+                    loading="lazy">
+            </div>
+            <figcaption><span>02</span> Quiet, close and entirely theirs.</figcaption>
+        </figure>
+
+        <figure class="moment reveal reveal-delay-2">
+            <div class="moment-frame">
+                <img
+                    src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=85"
+                    alt="Wedding rings and floral details on a table"
+                    width="800"
+                    height="1200"
+                    loading="lazy">
+            </div>
+            <figcaption><span>03</span> Small details that hold big meaning.</figcaption>
+        </figure>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
 <!-- =========================
      ABOUT
 ========================= -->
@@ -1010,6 +1244,8 @@ nav a {
     </div>
 
 </section>
+
+
 
 
 <!-- =========================
