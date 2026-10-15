@@ -139,9 +139,6 @@ nav a.active {
 
 
 
-
-
-
 img {
     width: 100%;
     display: block;
@@ -290,6 +287,23 @@ nav a:hover {
     }
 }
 
+/* =========================================
+   MOBILE VIEW: HERO & PORTFOLIO GAP REDUCTION
+========================================= */
+
+@media (max-width: 768px) {
+    /* Hero section  margin  */
+    .hero {
+        height: auto;
+        min-height: 420px; /* Mobile height */
+        padding-bottom: 20px;
+    }
+
+    /* Portfolio section upper padding  */
+    #portfolio {
+        padding-top: 30px !important; 
+    }
+}
 
 
 
@@ -1420,7 +1434,7 @@ nav a {
      https://app.tagembed.com/home by janaaK
 ========================= -->
 
-<section class="reviews-section">
+<section class="reviews-section" style="padding-bottom: 30px;">
 
     <div class="section-label">
         GOOGLE REVIEWS
@@ -1440,18 +1454,11 @@ nav a {
 
 
 
-
-
-
-
-
-
-
 <!-- =========================
      CONTACT
 ========================= -->
 
-<section class="contact" id="contact">
+<section class="contact" id="contact" style="padding-top: 30px;">
     <div>
         <div class="section-label">
             CONTACT
