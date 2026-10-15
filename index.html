@@ -283,7 +283,7 @@ nav a:hover {
                 rgba(0,0,0,0.75) 0%,
                 rgba(0,0,0,0.35) 100%
             ),
-            url('https://image.rashmikaphotography.com/gallery/galle-fort-rashmika-srimal-photograpy.webp')
+            url('https://image.rashmikaphotography.com/asset%20image/hero-rashmika-photography.avif')
             center center / cover no-repeat;
         
         height: 500px; 
@@ -318,20 +318,96 @@ nav a:hover {
     max-width: 350px;
 }
 
+/* =========================================
+   HERO BUTTON WITH BORDER SHINE ANIMATION
+========================================= */
+
 .hero-link {
     display: inline-flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 35px;
-    font-size: 16px;
-    letter-spacing: 2px;
-    border-bottom: 1px solid rgba(255,255,255,0.6);
-    padding-bottom: 10px;
-    transition: gap 0.3s ease;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    padding: 16px 30px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Smooth Border Magic */
+    border: 1px solid transparent;
+    background-clip: padding-box;
 }
 
+/* Border  Shining Line */
+.hero-link::before {
+    content: '';
+    position: absolute;
+    inset: -1px; /* around border  */
+    border-radius: 50px;
+    padding: 1px; /* border thickness */
+    background: linear-gradient(
+        90deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.9) 50%, 
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    background-size: 200% 100%;
+
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    
+    /* Gradient mask */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            
+    animation: borderShine 3.5s infinite linear;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Shine  Animation  */
+@keyframes borderShine {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Arrow Animation */
+.hero-link span {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover Effect */
 .hero-link:hover {
-    gap: 30px;
+    color: #242421;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.hero-link:hover span {
+    transform: translateX(6px);
+}
+
+/* Active Click Effect */
+.hero-link:active {
+    transform: translateY(0) scale(0.97);
 }
 
 
