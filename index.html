@@ -1152,42 +1152,303 @@ nav a:hover {
 
 /* ==========================================================================
    11. CONTACT
+   Dark "finale" section: photo collage + rotating badge on one side,
+   headline, primary call-to-action and refined link list on the other.
    ========================================================================== */
 .contact {
+    position: relative;
+    overflow: hidden;
+    padding: 110px 5%;
+    color: #f3f1ea;
+    background:
+        radial-gradient(circle at 88% 8%, rgba(180, 154, 118, .22), transparent 42%),
+        radial-gradient(circle at 4% 96%, rgba(180, 154, 118, .12), transparent 38%),
+        var(--text);
+}
+
+.contact-inner {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1fr);
+    grid-template-areas: "visual content";
     align-items: center;
-    gap: 10%;
-    padding-top: 30px;
+    gap: 8%;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.contact .section-label::after {
+    background: rgba(243, 241, 234, .28);
+}
+
+/* ---- Photo collage ---- */
+.contact-visual {
+    grid-area: visual;
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    padding-bottom: 60px;
+}
+
+/* Thin offset frame behind the main photo */
+.contact-visual::before {
+    content: "";
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    width: 80%;
+    aspect-ratio: 3 / 4;
+    border: 1px solid rgba(180, 154, 118, .55);
+    pointer-events: none;
+}
+
+.contact-photo {
+    position: relative;
+    overflow: hidden;
+    background: #33332f;
+}
+
+.contact-photo img {
+    height: 100%;
+    transition: transform 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+
+.contact-photo--main {
+    width: 80%;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .4);
+}
+
+.contact-photo--accent {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 46%;
+    aspect-ratio: 2 / 3;
+    border: 8px solid var(--text);  /* same colour as the section = "cut-out" look */
+    box-shadow: 0 24px 55px rgba(0, 0, 0, .45);
+}
+
+@media (hover: hover) {
+    .contact-visual:hover .contact-photo img {
+        transform: scale(1.05);
+    }
+}
+
+/* Rotating circular badge */
+.contact-badge {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 124px;
+    height: 124px;
+    color: var(--text);
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+}
+
+.contact-badge svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: badgeSpin 22s linear infinite;
+}
+
+.contact-badge text {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    fill: currentColor;
+}
+
+.contact-badge i {
+    font-size: 22px;
+}
+
+@keyframes badgeSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---- Content ---- */
+.contact-content {
+    grid-area: content;
 }
 
 .contact h2 {
-    margin-bottom: 20px;
-    font-size: clamp(35px, 5vw, 55px);
-    line-height: 1.2;
+    margin-bottom: 22px;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.1;
+    color: #fff;
 }
 
-.contact p {
-    max-width: 400px;
+.contact h2 .accent {
+    color: var(--accent);
+}
+
+.contact-content p {
+    max-width: 420px;
+    margin-bottom: 38px;
     font-size: 14px;
-    line-height: 1.8;
-    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(243, 241, 234, .68);
+}
+
+.contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 30px;
+    margin-bottom: 46px;
+}
+
+.contact-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--bg);
+    border-radius: 50px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .28);
+    transition:
+        background 300ms var(--ease),
+        transform 300ms var(--ease),
+        box-shadow 300ms var(--ease);
+}
+
+.contact-cta i {
+    font-size: 17px;
+}
+
+.contact-cta:hover {
+    background: var(--accent);
+    box-shadow: 0 18px 40px rgba(180, 154, 118, .28);
+    transform: translateY(-2px);
+}
+
+.contact-cta:active {
+    transform: scale(.97);
+}
+
+.contact-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    color: rgba(243, 241, 234, .85);
+    transition: color .25s ease;
+}
+
+.contact-call:hover {
+    color: var(--accent);
+}
+
+.contact-links {
+    border-top: 1px solid rgba(243, 241, 234, .16);
 }
 
 .contact-links a {
     display: flex;
-    justify-content: space-between;
-    padding: 17px 0;
-    font-size: 13px;
-    border-bottom: 1px solid var(--border);
-    transition: padding 0.25s ease;
+    align-items: baseline;
+    gap: 14px;
+    padding: 19px 0;
+    border-bottom: 1px solid rgba(243, 241, 234, .16);
+    transition: padding .25s ease, color .25s ease;
+}
+
+.contact-link-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    letter-spacing: .5px;
+}
+
+.contact-link-handle {
+    margin-left: auto;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgba(243, 241, 234, .5);
+}
+
+.contact-link-arrow {
+    font-size: 15px;
+    color: var(--accent);
+    transition: transform .25s ease;
 }
 
 .contact-links a:hover {
-    padding-left: 8px;
+    padding-left: 10px;
     color: var(--accent);
 }
 
+.contact-links a:hover .contact-link-arrow {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 900px) {
+    .contact {
+        padding: 80px 6%;
+    }
+
+    .contact-inner {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "content"
+            "visual";
+        gap: 80px;
+    }
+
+    .contact-visual {
+        justify-self: center;
+        max-width: 440px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-cta {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .contact-badge {
+        width: 96px;
+        height: 96px;
+    }
+
+    .contact-badge i {
+        font-size: 18px;
+    }
+
+    .contact-link-name {
+        font-size: 18px;
+    }
+
+    .contact-link-handle {
+        font-size: 11px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .contact-badge svg {
+        animation: none;
+    }
+
+    .contact-photo img,
+    .contact-visual:hover .contact-photo img {
+        transform: none;
+        transition: none;
+    }
+}
 
 /* ==========================================================================
    12. FOOTER
@@ -1538,33 +1799,90 @@ footer {
 <!-- ==========================================================================
      CONTACT
      ========================================================================== -->
-<section class="contact" id="contact">
-    <div>
-        <div class="section-label">CONTACT</div>
+<section class="contact" id="contact" aria-labelledby="contactTitle">
+    <div class="contact-inner">
 
-        <h2>LET'S CREATE<br>SOMETHING TIMELESS.</h2>
+        <div class="contact-content reveal">
+            <div class="section-label">CONTACT</div>
 
-        <p>
-            For weddings, engagements, events,
-            and creative photography inquiries.
-        </p>
-    </div>
+            <h2 id="contactTitle">LET'S CREATE<br><span class="accent">SOMETHING TIMELESS.</span></h2>
 
-    <div class="contact-links">
-        <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer">
-            WhatsApp <span aria-hidden="true">↗</span>
-        </a>
-        <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer">
-            Instagram <span aria-hidden="true">↗</span>
-        </a>
-        <a href="https://facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer">
-            Facebook <span aria-hidden="true">↗</span>
-        </a>
-        <a href="contact.html">
-            Contact <span aria-hidden="true">↗</span>
-        </a>
+            <p>
+                For weddings, engagements, events,
+                and creative photography inquiries.
+            </p>
+
+            <div class="contact-actions">
+                <a class="contact-cta"
+                   href="https://wa.me/94770633282?text=Hi%20Rashmika%2C%20I%27d%20like%20to%20enquire%20about%20a%20photoshoot."
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    Message on WhatsApp
+                </a>
+
+                <a class="contact-call" href="tel:+94770633282">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    +94 77 063 3282
+                </a>
+            </div>
+
+            <div class="contact-links">
+                <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-link-name">Instagram</span>
+                    <span class="contact-link-handle">@rashmika_photograph</span>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a href="https://facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-link-name">Facebook</span>
+                    <span class="contact-link-handle">RashmikaPhotograph</span>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a href="contact.html">
+                    <span class="contact-link-name">Contact form</span>
+                    <span class="contact-link-handle">Send an enquiry</span>
+                    <span class="contact-link-arrow" aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Swap these two image URLs for any photographs you like -->
+        <div class="contact-visual reveal-left">
+            <div class="contact-photo contact-photo--main">
+                <img
+                    src="https://image.rashmikaphotography.com/gallery/beautiful-girl-portrait-rashmika-srimal-photograpy.webp"
+                    alt="Wedding photography by Rashmika Photography"
+                    width="1000"
+                    height="1333"
+                    loading="lazy">
+            </div>
+
+            <div class="contact-photo contact-photo--accent">
+                <img
+                    src="https://image.rashmikaphotography.com/gallery/sunset-portrait-rashmika-srimal-photograpy-glow.webp"
+                    alt="Portrait photography by Rashmika Photography"
+                    width="800"
+                    height="1200"
+                    loading="lazy">
+            </div>
+
+            <div class="contact-badge" aria-hidden="true">
+                <svg viewBox="0 0 200 200">
+                    <defs>
+                        <path id="badgeCircle" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/>
+                    </defs>
+                    <text>
+                        <textPath href="#badgeCircle" textLength="498" lengthAdjust="spacing">BOOK YOUR STORY • BOOK YOUR STORY • </textPath>
+                    </text>
+                </svg>
+                <i class="fa-solid fa-camera"></i>
+            </div>
+        </div>
+
     </div>
 </section>
+
+
 
 </main>
 
