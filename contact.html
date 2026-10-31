@@ -28,7 +28,7 @@
       crossorigin>
 
 
-     
+
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional" rel="stylesheet">
@@ -49,20 +49,6 @@
 /* =========================================================
    GLOBAL
 ========================================================= */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; 
-}
-
-
-html {
-    scrollbar-gutter: stable;
-}
-
-
 
 :root {
     --bg: #f8f7f3;
@@ -70,6 +56,8 @@ html {
     --muted: #77766f;
     --border: #d9d7d0;
     --accent: #b49a76;
+
+    --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 * {
@@ -79,8 +67,9 @@ html {
 }
 
 html {
+    scrollbar-gutter: stable;
     scroll-behavior: smooth;
-    scroll-padding-top: 82px;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -102,12 +91,7 @@ input,
 textarea,
 .portfolio-item {
     -webkit-tap-highlight-color: rgba(180, 154, 118, 0.20);
-  
 }
-
-
-
-
 
 img {
     width: 100%;
@@ -123,42 +107,85 @@ h3 {
 }
 
 
-/* ===============================================================================================
-   HEADER
-==================================================================================================== */
+/* ==========================================================================
+   HEADER & NAVIGATION  (floating glass header + card menu)
+========================================================================== */
 
 header {
-
-    width: 100%;
-    height: 82px;
-    padding: 0 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-     box-sizing: border-box;  /*Height එක ඇතුළත padding එක තබා ගනී */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 78px;
+    margin: 0 auto;
+    padding: 0 5%;
+    background: transparent;
+    border-radius: 0;
+    transition:
+        top 0.55s var(--ease),
+        width 0.55s var(--ease),
+        padding 0.55s var(--ease),
+        border-radius 0.55s var(--ease);
 }
 
+/* Glass layer lives in ::before so child glass (mobile menu) still blurs the page */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background: var(--bg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top-color: transparent;
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 0 0 rgba(36, 36, 33, 0);
+    transition:
+        background 0.55s var(--ease),
+        border-color 0.55s var(--ease),
+        box-shadow 0.55s var(--ease),
+        backdrop-filter 0.55s var(--ease),
+        -webkit-backdrop-filter 0.55s var(--ease);
+}
+
+/* ---- Scrolled: floating, rounded, glass ---- */
+header.scrolled {
+    top: 14px;
+    width: calc(100% - 32px);
+    padding: 0 28px;
+    border-radius: 26px;
+}
+
+header.scrolled::before {
+    background: rgba(248, 247, 243, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    backdrop-filter: blur(24px) saturate(185%);
+    box-shadow:
+        0 18px 44px rgba(36, 36, 33, 0.14),
+        0 4px 12px rgba(36, 36, 33, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
 /* LOGO */
-
 .logo {
-
     font-family: 'Playfair Display', serif;
     font-size: 23px;
     letter-spacing: 3px;
     white-space: nowrap;
+    transition: font-weight 0.4s ease;
 }
 
+header.scrolled .logo {
+    font-weight: 600;
+}
 
-/* =====================================================================================
-   NAVIGATION
-======================================================================================= */
-
+/* NAVIGATION */
 .nav-area {
     display: flex;
     align-items: center;
@@ -172,28 +199,32 @@ nav {
 }
 
 nav a {
+    padding: 11px 15px;
     font-size: 11px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 11px 15px;
     border: 1px solid transparent;
     border-radius: 50px;
     transition:
         border-color 0.18s ease,
-        color 0.18s ease;
+        color 0.18s ease,
+        background 0.18s ease,
+        font-weight 0.3s ease;
+}
+
+/* Slightly bolder, still refined, once the header turns to glass */
+header.scrolled nav a {
+    font-weight: 600;
 }
 
 nav a:hover,
 nav a.active {
-    border-color: var(--text);
     color: var(--text);
+    background: transparent;
+    border-color: var(--text);
 }
 
-
-/* ====================================================================================
-   HEADER SOCIALS
-==================================================================================== */
-
+/* HEADER SOCIALS */
 .socials {
     display: flex;
     align-items: center;
@@ -215,11 +246,7 @@ nav a.active {
     transform: translateY(-2px);
 }
 
-
-/* =========================================================
-   MOBILE MENU BUTTON
-========================================================= */
-
+/* MOBILE MENU BUTTON (hidden on desktop) */
 .menu-toggle {
     display: none;
     background: none;
@@ -243,17 +270,10 @@ section {
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 35px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.section-label {
     display: inline-flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
 }
-
 
 .section-label::before,
 .section-label::after {
@@ -269,7 +289,6 @@ section {
 ========================================================= */
 
 .contact-intro {
-
     padding-top: 65px;
     padding-bottom: 35px;
     max-width: 100%;
@@ -279,16 +298,10 @@ section {
     align-items: center;
 }
 
-
-/* CONTACT LABEL */
-
 .contact-intro .section-label {
     justify-content: center;
     margin-bottom: 35px;
 }
-
-
-/* MAIN TITLE */
 
 .contact-intro h1 {
     font-size: clamp(36px, 5vw, 62px);
@@ -297,9 +310,6 @@ section {
     margin-bottom: 20px;
     text-align: center;
 }
-
-
-/* SUB TEXT */
 
 .contact-intro p {
     color: var(--muted);
@@ -329,7 +339,6 @@ section {
 ========================================================= */
 
 .contact-info {
-
     max-width: 600px;
 }
 
@@ -386,7 +395,6 @@ section {
 }
 
 .social-label {
-
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -469,7 +477,6 @@ section {
     gap: 6%;
     align-items: center;
     padding-top: 80px;
-    
 }
 
 .map-wrapper {
@@ -553,7 +560,6 @@ section {
 }
 
 form {
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 35px;
@@ -570,7 +576,6 @@ form {
 }
 
 .form-field label {
-
     display: block;
     margin-bottom: 9px;
     color: var(--muted);
@@ -581,7 +586,6 @@ form {
 .form-field input,
 .form-field select,
 .form-field textarea {
-
     width: 100%;
     border: none;
     outline: none;
@@ -599,20 +603,17 @@ form {
 }
 
 .form-field select {
-
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
 }
 
 .form-field select option {
-
     background: var(--bg);
     color: var(--text);
 }
 
 .form-field textarea {
-
     resize: vertical;
     min-height: 85px;
     line-height: 1.7;
@@ -628,7 +629,6 @@ form {
 ========================================================= */
 
 .submit-button {
-
     grid-column: 1 / -1;
     justify-self: start;
     display: inline-flex;
@@ -688,7 +688,6 @@ form {
 ========================================================= */
 
 footer {
-
     padding: 30px 6%;
     border-top: 1px solid var(--border);
     display: flex;
@@ -700,7 +699,6 @@ footer {
 }
 
 .footer-brand {
-
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
@@ -709,13 +707,11 @@ footer {
 }
 
 .footer-brand span {
-
     margin: 0 8px;
     color: var(--border);
 }
 
 .footer-bottom {
-
     font-family: 'DM Sans', sans-serif;
     font-size: 9px;
     font-weight: 300;
@@ -729,7 +725,6 @@ footer {
 ========================================================= */
 
 .reveal {
-
     opacity: 0;
     transform: translateY(45px);
     transition:
@@ -749,7 +744,6 @@ footer {
     transition:
         opacity 1s cubic-bezier(0.22,1,0.36,1),
         transform 1s cubic-bezier(0.22,1,0.36,1);
-
     transition-delay: 0.12s;
     will-change: opacity, transform;
 }
@@ -760,9 +754,9 @@ footer {
 }
 
 
-/* =========================================================================================================================
+/* =========================================================
    ACCESSIBILITY
-========================================================================================================================== */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -777,6 +771,13 @@ footer {
         transition: none;
         will-change: auto;
     }
+
+    header,
+    header::before,
+    .nav-area,
+    nav a {
+        transition: none !important;
+    }
 }
 
 
@@ -787,7 +788,11 @@ footer {
 @media (max-width: 900px) {
 
     header {
-        height: 75px;
+        height: 72px;
+    }
+
+    header.scrolled {
+        padding: 0 20px;
     }
 
     .logo {
@@ -841,11 +846,170 @@ footer {
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   MOBILE
 ========================================================= */
 
 @media (max-width: 650px) {
 
+    /* ---- Header: floating card menu that grows out of the button ---- */
+
+    .logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    header.scrolled {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 22px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-area {
+        position: absolute;
+        top: calc(100% + 10px);          /* gap between header and menu */
+        left: 24px;                       /* page visible on both sides */
+        right: 24px;
+        width: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 22px 6% 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 26px;
+        background: rgba(248, 247, 243, 0.62);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            0 28px 70px rgba(36, 36, 33, 0.2),
+            0 6px 16px rgba(36, 36, 33, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        /* closed state: tiny, sitting at the menu button (top-right) */
+        transform-origin: calc(100% - 15px) -46px;
+        transform: scale(0.06);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.42s cubic-bezier(0.55, 0, 0.8, 0.3),
+            opacity 0.28s ease 0.08s,
+            visibility 0s linear 0.45s;
+    }
+
+    /* Scrolled header is already inset 10px, so a smaller extra inset is enough */
+    header.scrolled .nav-area {
+        left: 14px;
+        right: 14px;
+        transform-origin: calc(100% - 26px) -46px;
+    }
+
+    .nav-area.active {
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.6s cubic-bezier(0.22, 1.12, 0.36, 1),
+            opacity 0.3s ease,
+            visibility 0s;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    nav a {
+        width: fit-content;
+        padding: 12px 24px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+            opacity 0.3s ease,
+            transform 0.45s var(--ease),
+            border-color 0.2s ease,
+            background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    nav a:active,
+    nav a:focus {
+        color: var(--text);
+        background: rgba(180, 154, 118, 0.14);
+        border-color: rgba(180, 154, 118, 0.35);
+    }
+
+    /* Staggered reveal after the card has grown */
+    .nav-area.active nav a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-area.active nav a:nth-child(1) { transition-delay: 0.14s; }
+    .nav-area.active nav a:nth-child(2) { transition-delay: 0.19s; }
+    .nav-area.active nav a:nth-child(3) { transition-delay: 0.24s; }
+    .nav-area.active nav a:nth-child(4) { transition-delay: 0.29s; }
+
+    .socials {
+        justify-content: center;
+        gap: 22px;
+        margin-top: 12px;
+        padding: 18px 10px 0;
+        border-left: none;
+        border-top: 1px solid rgba(36, 36, 33, 0.12);
+    }
+
+
+    /* ---- Page content (unchanged) ---- */
+
+    .contact-intro {
+        padding-top: 80px;
+        padding-bottom: 70px;
+        text-align: center;
+    }
+
+    .contact-intro .section-label {
+        justify-content: center;
+        margin-bottom: 28px;
+    }
+
+    .contact-intro h1 {
+        font-size: clamp(42px, 12vw, 62px);
+        line-height: 1.08;
+        text-align: center;
+    }
+
+    .contact-intro p {
+        max-width: 360px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .contact-main {
+        grid-template-columns: 1fr;
+        gap: 55px;
+        padding-top: 20px;
+    }
+
+    /* IMAGE FIRST ON MOBILE */
     .contact-image {
         order: -1;
         margin-left: -6.4vw;
@@ -854,179 +1018,15 @@ footer {
     }
 
     .image-wrapper img {
-        height: 400px;
+        height: 500px;
         width: 100%;
         object-fit: cover;
     }
-
-    .menu-toggle {
-
-        display: block;
-    }
-
-
-    .nav-area {
-        display: flex;
-        position: absolute;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        background: var(--bg);
-        flex-direction: column;
-        align-items: stretch;
-        max-height: 0;
-        padding: 0 6%;
-        opacity: 0;
-        overflow: hidden;
-        visibility: hidden;
-        transform: translateY(-12px);
-        border-bottom: 1px solid transparent;
-        transition:
-            max-height 0.65s cubic-bezier(0.22,1,0.36,1),
-            opacity 0.4s ease,
-            transform 0.55s cubic-bezier(0.22,1,0.36,1),
-            padding 0.5s ease,
-            visibility 0.65s,
-            border-color 0.4s ease;
-    }
-
-
-    .nav-area.active {
-
-        max-height: 420px;
-        padding: 25px 6% 30px;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        border-bottom-color: var(--border);
-    }
-
-
-    nav {
-
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-
-    nav a {
-        width: fit-content;
-        text-align: center;
-        padding: 12px 22px;
-        font-size: 12px;
-        letter-spacing: 1.5px;
-        border: 1px solid transparent;
-        border-radius: 50px;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition:
-            opacity 0.4s ease,
-            transform 0.5s cubic-bezier(0.22,1,0.36,1),
-            border-color 0.2s ease;
-        transition-delay: 0s;
-    }
-
-    .nav-area.active nav a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .nav-area.active nav a:nth-child(1) {
-        transition-delay: 0.10s;
-    }
-
-    .nav-area.active nav a:nth-child(2) {
-        transition-delay: 0.16s;
-    }
-
-    .nav-area.active nav a:nth-child(3) {
-        transition-delay: 0.22s;
-    }
-
-    .nav-area.active nav a:nth-child(4) {
-        transition-delay: 0.28s;
-    }
-
-
-    .socials {
-        border-left: none;
-        border-top: 1px solid var(--border);
-        padding: 20px 10px 0;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-
-
-    /* =========================
-   MOBILE CONTACT INTRO
-========================= */
-
-.contact-intro {
-    padding-top: 80px;
-    padding-bottom: 70px;
-    text-align: center;
-}
-
-.contact-intro .section-label {
-    justify-content: center;
-    margin-bottom: 28px;
-}
-
-.contact-intro h1 {
-    font-size: clamp(42px, 12vw, 62px);
-    line-height: 1.08;
-    text-align: center;
-}
-
-.contact-intro p {
-    max-width: 360px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
-}
-
-
-    /* =========================
-       MOBILE CONTACT MAIN
-    ========================= */
-
-    .contact-main {
-        grid-template-columns: 1fr;
-        gap: 55px;
-        padding-top: 20px;
-       
-    }
-
-
-    /* IMAGE FIRST ON MOBILE */
-
-    .contact-image {
-        order: -1;
-    }
-
-    .image-wrapper img {
-        height: 500px;
-    }
-
-
-    /* =========================
-       SOCIAL GRID
-    ========================= */
 
     .social-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-
-
-    /* =========================
-       MAP
-    ========================= */
 
     .location-section {
         padding-top: 70px;
@@ -1035,40 +1035,21 @@ footer {
     }
 
     .map-wrapper {
-
         height: 320px;
     }
-
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-
-
-
-
-    /* =========================
-       FORM
-    ========================= */
 
     .inquiry-section {
         padding-top: 80px;
         padding-bottom: 90px;
         gap: 45px;
-        
     }
-
-
-
-@media (max-width: 650px) {
 
     .inquiry-intro .section-label {
         justify-content: center;
-        
     }
 
     .inquiry-intro {
         text-align: center;
-        
     }
 
     .inquiry-intro p {
@@ -1076,15 +1057,6 @@ footer {
         margin-left: auto;
         margin-right: auto;
     }
-}
-
-
-
-
-
-
-
-
 
     form {
         grid-template-columns: 1fr;
@@ -1092,34 +1064,25 @@ footer {
     }
 
     .form-field.full {
-
         grid-column: auto;
     }
 
     .submit-button {
-
         grid-column: auto;
     }
 
     .form-field label {
-        font-size: 14px; 
-        font-weight: 400; 
+        font-size: 14px;
+        font-weight: 400;
         margin-bottom: 7px;
     }
 
-
-    /* ==============================================================
-       FOOTER
-    ================================================================== */
-
     footer {
-
         padding: 24px 6%;
         gap: 10px;
     }
 
     .footer-brand {
-
         font-size: 10px;
         letter-spacing: 1px;
     }
@@ -1448,7 +1411,7 @@ footer {
 
 
 
-                <!-- PINTEREST -->
+                <!-- WEBSITE -->
 
                 <a
                     href="https://rashmikaphotography.com"
@@ -1936,30 +1899,45 @@ menuToggle.addEventListener(
 );
 
 
-/* CLOSE WHEN CLICKING OUTSIDE */
+/* CLOSE THE MOMENT ANYTHING OUTSIDE THE MENU IS TOUCHED / CLICKED */
 
 document.addEventListener(
-    "click",
+    "pointerdown",
     function(event) {
 
-        const clickedInsideMenu =
-            navArea.contains(event.target);
-
-        const clickedMenuButton =
+        const touchedInside =
+            navArea.contains(event.target) ||
             menuToggle.contains(event.target);
 
 
         if (
             navArea.classList.contains("active") &&
-            !clickedInsideMenu &&
-            !clickedMenuButton
+            !touchedInside
         ) {
 
             closeMenu();
 
         }
 
-    }
+    },
+    { passive: true }
+);
+
+
+/* CLOSE ON SCROLL */
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        if (navArea.classList.contains("active")) {
+
+            closeMenu();
+
+        }
+
+    },
+    { passive: true }
 );
 
 
@@ -1995,6 +1973,35 @@ window.addEventListener(
 
     }
 );
+
+
+
+/* =========================================================
+   HEADER SCROLL STATE (floating glass)
+========================================================= */
+
+(function initHeaderScroll() {
+
+    const header =
+        document.querySelector("header");
+
+    if (!header) return;
+
+    const update = () =>
+        header.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
+        );
+
+    update();
+
+    window.addEventListener(
+        "scroll",
+        update,
+        { passive: true }
+    );
+
+})();
 
 
 

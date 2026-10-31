@@ -51,32 +51,14 @@
 
 <style>
 
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
-}
-
-html {
-    
-    scroll-behavior: smooth;
-    scroll-padding-top: 82px;
-}
-
-html {
-    scrollbar-gutter: stable;
-}
-
-
 :root {
     --bg: #f8f7f3;
     --text: #242421;
     --muted: #77766f;
     --border: #d9d7d0;
     --accent: #b49a76;
+
+    --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 * {
@@ -86,8 +68,9 @@ html {
 }
 
 html {
+    scrollbar-gutter: stable;
     scroll-behavior: smooth;
-    scroll-padding-top: 82px;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -129,18 +112,69 @@ h1, h2, h3 {
     font-weight: 400;
 }
 
+
+/* ==========================================================================
+   HEADER & NAVIGATION  (floating glass header + card menu)
+   ========================================================================== */
 header {
-    width: 100%;
-    height: 82px;
-    padding: 0 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 78px;
+    margin: 0 auto;
+    padding: 0 5%;
+    background: transparent;
+    border-radius: 0;
+    transition:
+        top 0.55s var(--ease),
+        width 0.55s var(--ease),
+        padding 0.55s var(--ease),
+        border-radius 0.55s var(--ease);
+}
+
+/* Glass layer lives in ::before so child glass (mobile menu) still blurs the page */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background: var(--bg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top-color: transparent;
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 0 0 rgba(36, 36, 33, 0);
+    transition:
+        background 0.55s var(--ease),
+        border-color 0.55s var(--ease),
+        box-shadow 0.55s var(--ease),
+        backdrop-filter 0.55s var(--ease),
+        -webkit-backdrop-filter 0.55s var(--ease);
+}
+
+/* ---- Scrolled: floating, rounded, glass ---- */
+header.scrolled {
+    top: 14px;
+    width: calc(100% - 32px);
+    padding: 0 28px;
+    border-radius: 26px;
+}
+
+header.scrolled::before {
+    background: rgba(248, 247, 243, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    backdrop-filter: blur(24px) saturate(185%);
+    box-shadow:
+        0 18px 44px rgba(36, 36, 33, 0.14),
+        0 4px 12px rgba(36, 36, 33, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .logo {
@@ -148,6 +182,11 @@ header {
     font-size: 23px;
     letter-spacing: 3px;
     white-space: nowrap;
+    transition: font-weight 0.4s ease;
+}
+
+header.scrolled .logo {
+    font-weight: 600;
 }
 
 .nav-area {
@@ -163,20 +202,32 @@ nav {
 }
 
 nav a {
+    padding: 11px 15px;
     font-size: 11px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 11px 15px;
     border: 1px solid transparent;
     border-radius: 50px;
-    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    transition:
+        border-color 0.18s ease,
+        color 0.18s ease,
+        background 0.18s ease,
+        font-weight 0.3s ease;
 }
 
-nav a:hover, nav a.active {
-    border-color: var(--text);
+/* Slightly bolder, still refined, once the header turns to glass */
+header.scrolled nav a {
+    font-weight: 600;
+}
+
+nav a:hover,
+nav a.active {
     color: var(--text);
+    background: transparent;
+    border-color: var(--text);
 }
 
+/* Social icons */
 .socials {
     display: flex;
     align-items: center;
@@ -195,15 +246,188 @@ nav a:hover, nav a.active {
     color: var(--accent);
 }
 
+/* Mobile menu button (hidden on desktop) */
 .menu-toggle {
     display: none;
     background: none;
     border: none;
     font-size: 26px;
-    cursor: pointer;
     color: var(--text);
+    cursor: pointer;
 }
 
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+    header {
+        height: 72px;
+    }
+
+    header.scrolled {
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-area {
+        gap: 10px;
+    }
+
+    nav {
+        gap: 0;
+    }
+
+    nav a {
+        padding: 10px 9px;
+        font-size: 10px;
+    }
+
+    .socials {
+        gap: 10px;
+        padding-left: 12px;
+    }
+}
+
+/* ---- Mobile: floating card menu that grows out of the button ---- */
+@media (max-width: 650px) {
+    .logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    header.scrolled {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 22px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-area {
+        position: absolute;
+        top: calc(100% + 10px);          /* gap between header and menu */
+        left: 24px;                       /* page visible on both sides */
+        right: 24px;
+        width: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 22px 6% 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 26px;
+        background: rgba(248, 247, 243, 0.62);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            0 28px 70px rgba(36, 36, 33, 0.2),
+            0 6px 16px rgba(36, 36, 33, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        /* closed state: tiny, sitting at the menu button (top-right) */
+        transform-origin: calc(100% - 15px) -46px;
+        transform: scale(0.06);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.42s cubic-bezier(0.55, 0, 0.8, 0.3),
+            opacity 0.28s ease 0.08s,
+            visibility 0s linear 0.45s;
+    }
+
+    /* Scrolled header is already inset 10px, so a smaller extra inset is enough */
+    header.scrolled .nav-area {
+        left: 14px;
+        right: 14px;
+        transform-origin: calc(100% - 26px) -46px;
+    }
+
+    .nav-area.active {
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.6s cubic-bezier(0.22, 1.12, 0.36, 1),
+            opacity 0.3s ease,
+            visibility 0s;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    nav a {
+        width: fit-content;
+        padding: 12px 24px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+            opacity 0.3s ease,
+            transform 0.45s var(--ease),
+            border-color 0.2s ease,
+            background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    nav a:active,
+    nav a:focus {
+        color: var(--text);
+        background: rgba(180, 154, 118, 0.14);
+        border-color: rgba(180, 154, 118, 0.35);
+    }
+
+    /* Staggered reveal after the card has grown */
+    .nav-area.active nav a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-area.active nav a:nth-child(1) { transition-delay: 0.14s; }
+    .nav-area.active nav a:nth-child(2) { transition-delay: 0.19s; }
+    .nav-area.active nav a:nth-child(3) { transition-delay: 0.24s; }
+    .nav-area.active nav a:nth-child(4) { transition-delay: 0.29s; }
+
+    .socials {
+        justify-content: center;
+        gap: 22px;
+        margin-top: 12px;
+        padding: 18px 10px 0;
+        border-left: none;
+        border-top: 1px solid rgba(36, 36, 33, 0.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header,
+    header::before,
+    .nav-area,
+    nav a {
+        transition: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   GALLERY
+   ========================================================================== */
 .gallery-hero {
     padding: 70px 5% 40px;
 }
@@ -474,88 +698,11 @@ footer {
     }
 }
 
-
 @media (max-width: 650px) {
-    header {
-        height: 75px;
-    }
-
-    .logo {
-        font-size: 19px;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-area {
-        display: flex;
-        position: absolute;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        background: var(--bg);
-        flex-direction: column;
-        align-items: stretch;
-        max-height: 0;
-        padding: 0 6%;
-        opacity: 0;
-        overflow: hidden;
-        visibility: hidden;
-        transform: translateY(-12px);
-        border-bottom: 1px solid transparent;
-        transition: max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s ease, visibility 0.65s, border-color 0.4s ease;
-    }
-
-    .nav-area.active {
-        max-height: 420px;
-        padding: 25px 6% 30px;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        border-bottom-color: var(--border);
-    }
-
-    nav {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .masonry-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
-
-    nav a {
-        width: fit-content;
-        text-align: center;
-        padding: 12px 22px;
-        font-size: 12px;
-        letter-spacing: 1.5px;
-        border: 1px solid transparent;
-        border-radius: 50px;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
-    }
-
-    .nav-area.active nav a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .socials {
-        border-left: none;
-        border-top: 1px solid var(--border);
-        padding: 20px 10px 0;
-        justify-content: center;
-    }
-
-    .masonry-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-   
-}
-    
 }
 
 /* Reduced motion: no shimmer, no blur/zoom, only a simple fade */
@@ -1274,11 +1421,20 @@ menuToggle.addEventListener("click", function(event) {
     menuToggle.textContent = isOpen ? "×" : "☰";
 });
 
-document.addEventListener("click", function(event) {
-    if (navArea.classList.contains("active") && !navArea.contains(event.target) && !menuToggle.contains(event.target)) {
+// Close the moment anything outside the menu is touched / clicked
+document.addEventListener("pointerdown", function(event) {
+    const touchedInside = navArea.contains(event.target) || menuToggle.contains(event.target);
+    if (navArea.classList.contains("active") && !touchedInside) {
         closeMenu();
     }
-});
+}, { passive: true });
+
+// Close on scroll
+window.addEventListener("scroll", function() {
+    if (navArea.classList.contains("active")) {
+        closeMenu();
+    }
+}, { passive: true });
 
 document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", closeMenu);
@@ -1289,6 +1445,18 @@ window.addEventListener("resize", function() {
         closeMenu();
     }
 });
+
+/* =========================
+   HEADER SCROLL STATE (floating glass)
+========================= */
+(function initHeaderScroll() {
+    const header = document.querySelector("header");
+    if (!header) return;
+
+    const update = () => header.classList.toggle("scrolled", window.scrollY > 30);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+})();
 
 /* =========================
    4. SCROLL REVEAL ANIMATIONS

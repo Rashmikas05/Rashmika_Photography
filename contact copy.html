@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Contact | Rashmika Photography</title>
+
+
+<link rel="icon" type="image/png" href="./Favilcon.png?v=2">
+<link rel="shortcut icon" href="./Favilcon.png?v=2">
+<link rel="apple-touch-icon" href="./Favilcon.png?v=2">
+
+
+<!-- =========================
+     GOOGLE FONTS
+========================= -->
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+
+
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">
+
+
+
+<!-- =========================
+     FONT AWESOME
+========================= -->
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root {
+    --bg: #f8f7f3;
+    --text: #242421;
+    --muted: #77766f;
+    --border: #d9d7d0;
+    --accent: #b49a76;
+
+    --ease: cubic-bezier(.22, .61, .36, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a,
+button,
+select,
+input,
+textarea,
+.portfolio-item {
+    -webkit-tap-highlight-color: rgba(180, 154, 118, 0.20);
+}
+
+img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+
+/* ==========================================================================
+   HEADER & NAVIGATION  (floating glass header + card menu)
+========================================================================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 78px;
+    margin: 0 auto;
+    padding: 0 5%;
+    background: transparent;
+    border-radius: 0;
+    transition:
+        top 0.55s var(--ease),
+        width 0.55s var(--ease),
+        padding 0.55s var(--ease),
+        border-radius 0.55s var(--ease);
+}
+
+/* Glass layer lives in ::before so child glass (mobile menu) still blurs the page */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background: var(--bg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top-color: transparent;
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 0 0 rgba(36, 36, 33, 0);
+    transition:
+        background 0.55s var(--ease),
+        border-color 0.55s var(--ease),
+        box-shadow 0.55s var(--ease),
+        backdrop-filter 0.55s var(--ease),
+        -webkit-backdrop-filter 0.55s var(--ease);
+}
+
+/* ---- Scrolled: floating, rounded, glass ---- */
+header.scrolled {
+    top: 14px;
+    width: calc(100% - 32px);
+    padding: 0 28px;
+    border-radius: 26px;
+}
+
+header.scrolled::before {
+    background: rgba(248, 247, 243, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    backdrop-filter: blur(24px) saturate(185%);
+    box-shadow:
+        0 18px 44px rgba(36, 36, 33, 0.14),
+        0 4px 12px rgba(36, 36, 33, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* LOGO */
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    letter-spacing: 3px;
+    white-space: nowrap;
+    transition: font-weight 0.4s ease;
+}
+
+header.scrolled .logo {
+    font-weight: 600;
+}
+
+/* NAVIGATION */
+.nav-area {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+nav a {
+    padding: 11px 15px;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    transition:
+        border-color 0.18s ease,
+        color 0.18s ease,
+        background 0.18s ease,
+        font-weight 0.3s ease;
+}
+
+/* Slightly bolder, still refined, once the header turns to glass */
+header.scrolled nav a {
+    font-weight: 600;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--text);
+    background: transparent;
+    border-color: var(--text);
+}
+
+/* HEADER SOCIALS */
+.socials {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding-left: 25px;
+    border-left: 1px solid var(--border);
+}
+
+.socials a {
+    font-size: 14px;
+    font-weight: 600;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.socials a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* MOBILE MENU BUTTON (hidden on desktop) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+section {
+    padding: 110px 7%;
+}
+
+.section-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-label::before,
+.section-label::after {
+    content: "";
+    height: 1px;
+    width: 35px;
+    background: var(--border);
+}
+
+
+/* =========================================================
+   CONTACT INTRO
+========================================================= */
+
+.contact-intro {
+    padding-top: 65px;
+    padding-bottom: 35px;
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-intro .section-label {
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.contact-intro h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.06;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-intro p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.9;
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* =========================================================
+   CONTACT MAIN
+========================================================= */
+
+.contact-main {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8%;
+    align-items: start;
+}
+
+
+/* =========================================================
+   CONTACT INFORMATION
+========================================================= */
+
+.contact-info {
+    max-width: 600px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    transition:
+        padding-left 0.3s ease,
+        color 0.25s ease;
+}
+
+.info-item:hover {
+    padding-left: 8px;
+    color: var(--accent);
+}
+
+.info-icon {
+    width: 22px;
+    padding-top: 4px;
+    font-size: 14px;
+    color: var(--accent);
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.info-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.info-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   SOCIAL MEDIA SECTION
+========================================================= */
+
+.social-section {
+    margin-top: 45px;
+}
+
+.social-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 30px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.social-link i {
+    font-size: 17px;
+    width: 22px;
+}
+
+.social-link div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.social-link span {
+    font-size: 13px;
+}
+
+.social-link small {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 300;
+}
+
+.social-link:hover {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   WEDDING IMAGE
+========================================================= */
+
+.contact-image {
+    width: 100%;
+}
+
+.image-wrapper {
+    overflow: hidden;
+    background: #e8e5de;
+}
+
+.image-wrapper img {
+    height: 650px;
+    transition:
+        transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.035);
+}
+
+
+/* =========================================================
+   LOCATION / GOOGLE MAP
+========================================================= */
+
+.location-section {
+    display: grid;
+    grid-template-columns: 1.7fr 0.8fr;
+    gap: 6%;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.map-wrapper {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.location-info h2 {
+    font-size: clamp(38px, 4vw, 55px);
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.location-info p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--accent);
+    transition:
+        gap 0.25s ease,
+        color 0.25s ease;
+}
+
+.map-link:hover {
+    gap: 23px;
+    color: var(--accent);
+}
+
+
+/* =========================================================
+   INQUIRY SECTION
+========================================================= */
+
+.inquiry-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.4fr;
+    gap: 10%;
+    align-items: start;
+    padding-top: 90px;
+    padding-bottom: 120px;
+}
+
+.inquiry-intro h2 {
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+.inquiry-intro p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    max-width: 330px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-container {
+    width: 100%;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 35px;
+    row-gap: 30px;
+}
+
+.form-field {
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
+
+.form-field.full {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 0.8px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 5px 0 13px;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #aaa89f;
+}
+
+.form-field select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-field select option {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 85px;
+    line-height: 1.7;
+}
+
+.form-field:focus-within {
+    border-bottom-color: var(--accent);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-button {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 10px;
+    padding: 0 0 10px;
+    border: none;
+    border-bottom: 1px solid var(--accent);
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition:
+        gap 0.3s ease,
+        color 0.25s ease;
+}
+
+.submit-button:hover {
+    gap: 28px;
+    color: var(--accent);
+}
+
+.submit-button:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+
+/* =========================================================
+   FORM MESSAGE
+========================================================= */
+
+.form-message {
+    grid-column: 1 / -1;
+    display: none;
+    font-size: 12px;
+    line-height: 1.7;
+    padding-top: 5px;
+}
+
+.form-message.success {
+    display: block;
+    color: var(--accent);
+}
+
+.form-message.error {
+    display: block;
+    color: #9b665d;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 30px 6%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.footer-brand {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+}
+
+.footer-brand span {
+    margin: 0 8px;
+    color: var(--border);
+}
+
+.footer-bottom {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.8px;
+    color: #99978f;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+        opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+        transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    will-change: opacity, transform;
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay {
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+        opacity 1s cubic-bezier(0.22,1,0.36,1),
+        transform 1s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: 0.12s;
+    will-change: opacity, transform;
+}
+
+.reveal-delay.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .reveal,
+    .reveal-delay {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        will-change: auto;
+    }
+
+    header,
+    header::before,
+    .nav-area,
+    nav a {
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    header {
+        height: 72px;
+    }
+
+    header.scrolled {
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-area {
+        gap: 10px;
+    }
+
+    nav {
+        gap: 0;
+    }
+
+    nav a {
+        padding: 10px 9px;
+        font-size: 10px;
+    }
+
+    .socials {
+        gap: 10px;
+        padding-left: 12px;
+    }
+
+    section {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .contact-main {
+        gap: 5%;
+    }
+
+    .image-wrapper img {
+        height: 550px;
+    }
+
+    .location-section {
+        grid-template-columns: 1fr;
+    }
+
+    .location-info {
+        max-width: 600px;
+    }
+
+    .inquiry-section {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    /* ---- Header: floating card menu that grows out of the button ---- */
+
+    .logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    header.scrolled {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 22px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-area {
+        position: absolute;
+        top: calc(100% + 10px);          /* gap between header and menu */
+        left: 24px;                       /* page visible on both sides */
+        right: 24px;
+        width: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 22px 6% 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 26px;
+        background: rgba(248, 247, 243, 0.62);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            0 28px 70px rgba(36, 36, 33, 0.2),
+            0 6px 16px rgba(36, 36, 33, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        /* closed state: tiny, sitting at the menu button (top-right) */
+        transform-origin: calc(100% - 15px) -46px;
+        transform: scale(0.06);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.42s cubic-bezier(0.55, 0, 0.8, 0.3),
+            opacity 0.28s ease 0.08s,
+            visibility 0s linear 0.45s;
+    }
+
+    /* Scrolled header is already inset 10px, so a smaller extra inset is enough */
+    header.scrolled .nav-area {
+        left: 14px;
+        right: 14px;
+        transform-origin: calc(100% - 26px) -46px;
+    }
+
+    .nav-area.active {
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.6s cubic-bezier(0.22, 1.12, 0.36, 1),
+            opacity 0.3s ease,
+            visibility 0s;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    nav a {
+        width: fit-content;
+        padding: 12px 24px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+            opacity 0.3s ease,
+            transform 0.45s var(--ease),
+            border-color 0.2s ease,
+            background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    nav a:active,
+    nav a:focus {
+        color: var(--text);
+        background: rgba(180, 154, 118, 0.14);
+        border-color: rgba(180, 154, 118, 0.35);
+    }
+
+    /* Staggered reveal after the card has grown */
+    .nav-area.active nav a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-area.active nav a:nth-child(1) { transition-delay: 0.14s; }
+    .nav-area.active nav a:nth-child(2) { transition-delay: 0.19s; }
+    .nav-area.active nav a:nth-child(3) { transition-delay: 0.24s; }
+    .nav-area.active nav a:nth-child(4) { transition-delay: 0.29s; }
+
+    .socials {
+        justify-content: center;
+        gap: 22px;
+        margin-top: 12px;
+        padding: 18px 10px 0;
+        border-left: none;
+        border-top: 1px solid rgba(36, 36, 33, 0.12);
+    }
+
+
+    /* ---- Page content (unchanged) ---- */
+
+    .contact-intro {
+        padding-top: 80px;
+        padding-bottom: 70px;
+        text-align: center;
+    }
+
+    .contact-intro .section-label {
+        justify-content: center;
+        margin-bottom: 28px;
+    }
+
+    .contact-intro h1 {
+        font-size: clamp(42px, 12vw, 62px);
+        line-height: 1.08;
+        text-align: center;
+    }
+
+    .contact-intro p {
+        max-width: 360px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .contact-main {
+        grid-template-columns: 1fr;
+        gap: 55px;
+        padding-top: 20px;
+    }
+
+    /* IMAGE FIRST ON MOBILE */
+    .contact-image {
+        order: -1;
+        margin-left: -6.4vw;
+        margin-right: -6.4vw;
+        width: calc(100% + 12.8vw);
+    }
+
+    .image-wrapper img {
+        height: 500px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .social-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .location-section {
+        padding-top: 70px;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .map-wrapper {
+        height: 320px;
+    }
+
+    .inquiry-section {
+        padding-top: 80px;
+        padding-bottom: 90px;
+        gap: 45px;
+    }
+
+    .inquiry-intro .section-label {
+        justify-content: center;
+    }
+
+    .inquiry-intro {
+        text-align: center;
+    }
+
+    .inquiry-intro p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+        row-gap: 25px;
+    }
+
+    .form-field.full {
+        grid-column: auto;
+    }
+
+    .submit-button {
+        grid-column: auto;
+    }
+
+    .form-field label {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 7px;
+    }
+
+    footer {
+        padding: 24px 6%;
+        gap: 10px;
+    }
+
+    .footer-brand {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .footer-bottom {
+        font-size: 8px;
+        letter-spacing: 0.6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+
+    <!-- LOGO -->
+
+    <a href="index.html" class="logo">
+
+        RASHMIKA PHOTOGRAPHY
+
+    </a>
+
+
+    <!-- MOBILE MENU -->
+
+    <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="navArea">
+
+        ☰
+
+    </button>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="nav-area" id="navArea">
+        <nav>
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="gallery.html">
+                GALLERY
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="contact.html" class="active">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <!-- SOCIAL ICONS -->
+
+        <div class="socials">
+            <a href="https://www.instagram.com/rashmika_photograph" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/RashmikaPhotograph" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/94770633282" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="tel:+94770633282" aria-label="Call Rashmika Photography">
+                <i class="fa-solid fa-phone"></i>
+            </a>
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     CONTACT INTRO
+========================================================= -->
+
+<section class="contact-intro reveal">
+    <div class="section-label">
+
+        CONTACT
+
+    </div>  
+
+    <h1>
+
+        LET'S CREATE SOMETHING<br>
+         TIMELESS.
+
+    </h1>
+
+
+    <p>
+        For weddings, engagements, events,
+        and creative photography inquiries.
+    </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONTACT INFORMATION + IMAGE
+========================================================= -->
+
+<section class="contact-main">
+
+    <!-- CONTACT INFORMATION -->
+    <div class="contact-info reveal">
+
+        <div class="section-label">
+            CONTACT
+        </div>
+
+        <!-- PHONE -->
+
+        <a
+            href="tel:+94770633282"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-solid fa-phone"></i>
+
+            </div>
+
+
+            <div class="info-content">
+                <span class="info-label">
+                    PHONE / WHATSAPP
+
+                </span>
+
+
+                <span class="info-value">
+                    +94 77 063 3282
+                </span>
+            </div>
+        </a>
+
+
+
+        <!-- EMAIL -->
+
+        <a
+            href="mailto:hello@rashmikaphotography.com"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-regular fa-envelope"></i>
+
+            </div>
+
+
+            <div class="info-content">
+
+                <span class="info-label">
+
+                    EMAIL
+
+                </span>
+
+
+                <span class="info-value">
+
+                    hello@rashmikaphotography.com
+                </span>
+            </div>
+        </a>
+
+
+
+        <!-- ADDRESS -->
+
+        <a
+            href="https://maps.app.goo.gl/G11Uc3XTYNq9bnYK9"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="info-item">
+
+
+            <div class="info-icon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+
+            <div class="info-content">
+                <span class="info-label">
+                    ADDRESS
+                </span>
+
+
+                <span class="info-value">
+
+                    Panviladuwa Watta,<br>
+                    Godakanda, Karapitiya,<br>
+                    Galle, Sri Lanka
+
+                </span>
+            </div>
+        </a>
+
+
+
+        <!-- SOCIAL MEDIA -->
+
+        <div class="social-section">
+
+            <div class="social-label">
+                FOLLOW THE JOURNEY
+            </div>
+
+
+            <div class="social-grid">
+
+
+                <!-- INSTAGRAM -->
+
+                <a
+                    href="https://www.instagram.com/rashmika_photograph"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-instagram"></i>
+
+
+                    <div>
+                        <span>
+                            Instagram
+                        </span>
+
+                        <small>
+                            @rashmika_Photography
+                        </small>
+                    </div>
+                </a>
+
+
+
+                <!-- FACEBOOK -->
+
+                <a
+                    href="https://www.facebook.com/RashmikaPhotograph"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-facebook-f"></i>
+
+
+                    <div>
+
+                        <span>
+                            Facebook
+                        </span>
+
+                        <small>
+                            facebook.com/RashmikaPhotograph
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- WHATSAPP -->
+
+                <a
+                    href="https://wa.me/94770633282"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    <div>
+
+                        <span>
+                            WhatsApp
+                        </span>
+
+                        <small>
+                            +94 77 063 3282
+                        </small>
+                    </div>
+                </a>
+
+
+
+                <!-- WEBSITE -->
+
+                <a
+                    href="https://rashmikaphotography.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-link">
+
+
+                    <i class="fa-solid fa-globe"></i>
+
+
+                    <div>
+
+                        <span>
+                            Website
+                        </span>
+
+                        <small>
+                            www.rashmikaphotography.com
+                        </small>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WEDDING PHOTO -->
+
+    <div class="contact-image reveal-delay">
+
+
+        <div class="image-wrapper">
+
+            <img
+                src="https://image.rashmikaphotography.com/asset%20image/senani-poster.avif"
+                alt="Wedding couple"
+                loading="lazy">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     GOOGLE MAP
+========================================================= -->
+
+<section class="location-section reveal">
+
+
+    <div class="map-wrapper">
+
+
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.9646482000135!2d80.2279905597312!3d6.072012778862763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae171478701f181%3A0x3bd561925afd5440!2sRashmika%20Photography!5e0!3m2!1sen!2slk!4v1791070486506!5m2!1sen!2slk"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Rashmika Visuals Location">
+        </iframe>
+
+
+    </div>
+
+
+
+    <div class="location-info">
+
+
+        <div class="section-label">
+
+            OUR LOCATION
+
+        </div>
+
+
+        <h2>
+
+            FIND US IN<br>
+            GALLE.
+
+        </h2>
+
+
+        <p>
+
+            Panviladuwa Watta,<br>
+            Godakanda, Karapitiya,<br>
+            Galle, Sri Lanka
+
+        </p>
+
+
+        <a
+            href="https://maps.app.goo.gl/G11Uc3XTYNq9bnYK9"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="map-link">
+
+            VIEW ON GOOGLE MAPS
+
+            <span>↗</span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INQUIRY FORM
+========================================================= -->
+
+<section class="inquiry-section">
+
+
+    <!-- FORM INTRO -->
+
+    <div class="inquiry-intro reveal">
+
+
+        <div class="section-label">
+
+            SEND AN INQUIRY
+
+        </div>
+
+
+        <h2>
+
+            Tell me about<br>
+            your special day.
+
+        </h2>
+
+
+        <p>
+
+            I'd love to hear about your vision
+            and help create something beautiful
+            together.
+
+        </p>
+
+    </div>
+
+
+
+   <!-- FORM -->
+
+<div class="form-container reveal">
+
+    <form
+        id="contactForm"
+        action="https://api.web3forms.com/submit"
+        method="POST">
+
+        <!-- WEB3FORMS ACCESS KEY -->
+
+        <input
+            type="hidden"
+            name="access_key"
+            value="7ae635f1-433b-486e-987b-21fbeadb2953">
+
+
+        <!-- NAME -->
+
+        <div class="form-field">
+
+            <label for="name">
+
+                Name *
+
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                required>
+
+        </div>
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-field">
+
+            <label for="email">
+
+                Email *
+
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required>
+
+        </div>
+
+
+            <!-- PHONE -->
+
+<div class="form-field">
+
+    <label for="phone">
+
+        Phone Number *
+
+    </label>
+
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        autocomplete="tel"
+        placeholder="+94 XX XXX XXXX"
+        required>
+
+</div>
+
+
+
+
+
+
+        <!-- EVENT TYPE -->
+
+        <div class="form-field">
+
+            <label for="event">
+
+                Event Type *
+
+            </label>
+
+            <select
+                id="event"
+                name="event_type"
+                required>
+
+                <option
+                    value=""
+                    selected
+                    disabled>
+
+                    Select an event type
+
+                </option>
+
+                <option value="Wedding">
+
+                    Wedding
+
+                </option>
+
+                <option value="Engagement">
+
+                    Engagement
+
+                </option>
+
+                <option value="Birthday">
+
+                    Birthday
+
+                </option>
+
+                <option value="Corporate / Event">
+
+                    Corporate / Event
+
+                </option>
+
+                <option value="Portrait">
+
+                    Portrait
+
+                </option>
+
+                <option value="Other">
+                    Other
+
+                </option>
+            </select>
+        </div>
+
+
+
+        <!-- EVENT DATE -->
+
+        <div class="form-field">
+            <label for="date">
+
+                Event Date *
+
+            </label>
+
+            <input
+                type="date"
+                id="date"
+                name="event_date"
+                required>
+
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div class="form-field full">
+
+            <label for="message">
+
+                Message *
+
+            </label>
+
+            <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Tell me more about your event..."
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- SUBJECT -->
+
+        <input
+            type="hidden"
+            name="subject"
+            value="New Photography Inquiry">
+
+
+        <!-- FROM NAME -->
+
+        <input
+            type="hidden"
+            name="from_name"
+            value="Rashmika Photography Website">
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="submit-button"
+            id="submitButton">
+
+            <span id="submitText">
+
+                SEND INQUIRY
+
+            </span>
+
+            <span>
+
+                →
+
+            </span>
+
+        </button>
+
+
+
+        <!-- FORM MESSAGE -->
+
+        <div
+            class="form-message"
+            id="formMessage"
+            role="status">
+        </div>
+
+
+    </form>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        Rashmika Photography
+
+        <span>|</span>
+
+        Rashmika Visuals
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 Rashmika Visuals.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const navArea =
+    document.getElementById("navArea");
+
+
+/* CLOSE MENU */
+
+function closeMenu() {
+
+    navArea.classList.remove("active");
+
+    menuToggle.textContent = "☰";
+
+    menuToggle.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+}
+
+
+/* OPEN / CLOSE */
+
+menuToggle.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        navArea.classList.toggle("active");
+
+        const isOpen =
+            navArea.classList.contains("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuToggle.textContent =
+            isOpen ? "×" : "☰";
+
+    }
+);
+
+
+/* CLOSE THE MOMENT ANYTHING OUTSIDE THE MENU IS TOUCHED / CLICKED */
+
+document.addEventListener(
+    "pointerdown",
+    function(event) {
+
+        const touchedInside =
+            navArea.contains(event.target) ||
+            menuToggle.contains(event.target);
+
+
+        if (
+            navArea.classList.contains("active") &&
+            !touchedInside
+        ) {
+
+            closeMenu();
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+/* CLOSE ON SCROLL */
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        if (navArea.classList.contains("active")) {
+
+            closeMenu();
+
+        }
+
+    },
+    { passive: true }
+);
+
+
+/* CLOSE WHEN NAV LINK CLICKED */
+
+document
+    .querySelectorAll("nav a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                closeMenu();
+
+            }
+        );
+
+    });
+
+
+/* CLOSE WHEN DESKTOP */
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        if (window.innerWidth > 650) {
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   HEADER SCROLL STATE (floating glass)
+========================================================= */
+
+(function initHeaderScroll() {
+
+    const header =
+        document.querySelector("header");
+
+    if (!header) return;
+
+    const update = () =>
+        header.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
+        );
+
+    update();
+
+    window.addEventListener(
+        "scroll",
+        update,
+        { passive: true }
+    );
+
+})();
+
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal, .reveal-delay"
+    );
+
+
+const prefersReducedMotion =
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+
+if (prefersReducedMotion.matches) {
+
+    revealElements.forEach(element => {
+
+        element.classList.add("show");
+
+    });
+
+} else {
+
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12,
+
+                rootMargin:
+                    "0px 0px -40px 0px"
+            }
+
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(element);
+
+    });
+
+}
+
+
+
+
+/* =========================================================
+   CONTACT FORM - WEB3FORMS
+========================================================= */
+
+const contactForm =
+    document.getElementById("contactForm");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const submitText =
+    document.getElementById("submitText");
+
+const formMessage =
+    document.getElementById("formMessage");
+
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
+
+contactForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        /* =================================================
+           LOADING STATE
+        ================================================= */
+
+        submitButton.disabled = true;
+
+        submitText.textContent =
+            "SENDING...";
+
+        formMessage.className =
+            "form-message";
+
+        formMessage.textContent = "";
+
+
+        /* =================================================
+           FORM DATA
+        ================================================= */
+
+        const formData =
+            new FormData(contactForm);
+
+
+        try {
+
+            /* =============================================
+               SEND TO WEB3FORMS
+            ============================================= */
+
+            const response =
+                await fetch(
+                    contactForm.action,
+                    {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            /* =============================================
+               SUCCESS
+            ============================================= */
+
+            if (
+                response.ok &&
+                result.success
+            ) {
+
+                formMessage.textContent =
+                    "Thank you. Your inquiry has been received. I'll get back to you soon.";
+
+                formMessage.className =
+                    "form-message success";
+
+
+                /* Clear form */
+
+                contactForm.reset();
+
+
+            } else {
+
+                throw new Error(
+                    result.message ||
+                    "Form submission failed."
+                );
+
+            }
+
+
+        } catch (error) {
+
+
+            /* =============================================
+               ERROR
+            ============================================= */
+
+            console.error(
+                "Web3Forms Error:",
+                error
+            );
+
+
+            formMessage.textContent =
+                "Something went wrong. Please try again or contact me directly via WhatsApp.";
+
+            formMessage.className =
+                "form-message error";
+
+        }
+
+
+        /* =================================================
+           RESTORE BUTTON
+        ================================================= */
+
+        submitButton.disabled = false;
+
+        submitText.textContent =
+            "SEND INQUIRY";
+
+    }
+);
+
+
+
+</script>
+
+
+</body>
+
+</html>

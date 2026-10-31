@@ -43,6 +43,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://image.rashmikaphotography.com" crossorigin>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
@@ -50,32 +51,14 @@
 
 <style>
 
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* අනිත් content වලට වඩා උඩින් පෙනෙන්න */
-}
-
-html {
-    
-    scroll-behavior: smooth;
-    scroll-padding-top: 82px;
-}
-
-html {
-    scrollbar-gutter: stable;
-}
-
-
 :root {
     --bg: #f8f7f3;
     --text: #242421;
     --muted: #77766f;
     --border: #d9d7d0;
     --accent: #b49a76;
+
+    --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 * {
@@ -85,8 +68,9 @@ html {
 }
 
 html {
+    scrollbar-gutter: stable;
     scroll-behavior: smooth;
-    scroll-padding-top: 82px;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -128,18 +112,69 @@ h1, h2, h3 {
     font-weight: 400;
 }
 
+
+/* ==========================================================================
+   HEADER & NAVIGATION  (floating glass header + card menu)
+   ========================================================================== */
 header {
-    width: 100%;
-    height: 82px;
-    padding: 0 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 78px;
+    margin: 0 auto;
+    padding: 0 5%;
+    background: transparent;
+    border-radius: 0;
+    transition:
+        top 0.55s var(--ease),
+        width 0.55s var(--ease),
+        padding 0.55s var(--ease),
+        border-radius 0.55s var(--ease);
+}
+
+/* Glass layer lives in ::before so child glass (mobile menu) still blurs the page */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background: var(--bg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top-color: transparent;
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 0 0 rgba(36, 36, 33, 0);
+    transition:
+        background 0.55s var(--ease),
+        border-color 0.55s var(--ease),
+        box-shadow 0.55s var(--ease),
+        backdrop-filter 0.55s var(--ease),
+        -webkit-backdrop-filter 0.55s var(--ease);
+}
+
+/* ---- Scrolled: floating, rounded, glass ---- */
+header.scrolled {
+    top: 14px;
+    width: calc(100% - 32px);
+    padding: 0 28px;
+    border-radius: 26px;
+}
+
+header.scrolled::before {
+    background: rgba(248, 247, 243, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    backdrop-filter: blur(24px) saturate(185%);
+    box-shadow:
+        0 18px 44px rgba(36, 36, 33, 0.14),
+        0 4px 12px rgba(36, 36, 33, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .logo {
@@ -147,6 +182,11 @@ header {
     font-size: 23px;
     letter-spacing: 3px;
     white-space: nowrap;
+    transition: font-weight 0.4s ease;
+}
+
+header.scrolled .logo {
+    font-weight: 600;
 }
 
 .nav-area {
@@ -162,20 +202,32 @@ nav {
 }
 
 nav a {
+    padding: 11px 15px;
     font-size: 11px;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 11px 15px;
     border: 1px solid transparent;
     border-radius: 50px;
-    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    transition:
+        border-color 0.18s ease,
+        color 0.18s ease,
+        background 0.18s ease,
+        font-weight 0.3s ease;
 }
 
-nav a:hover, nav a.active {
-    border-color: var(--text);
+/* Slightly bolder, still refined, once the header turns to glass */
+header.scrolled nav a {
+    font-weight: 600;
+}
+
+nav a:hover,
+nav a.active {
     color: var(--text);
+    background: transparent;
+    border-color: var(--text);
 }
 
+/* Social icons */
 .socials {
     display: flex;
     align-items: center;
@@ -194,15 +246,188 @@ nav a:hover, nav a.active {
     color: var(--accent);
 }
 
+/* Mobile menu button (hidden on desktop) */
 .menu-toggle {
     display: none;
     background: none;
     border: none;
     font-size: 26px;
-    cursor: pointer;
     color: var(--text);
+    cursor: pointer;
 }
 
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+    header {
+        height: 72px;
+    }
+
+    header.scrolled {
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-area {
+        gap: 10px;
+    }
+
+    nav {
+        gap: 0;
+    }
+
+    nav a {
+        padding: 10px 9px;
+        font-size: 10px;
+    }
+
+    .socials {
+        gap: 10px;
+        padding-left: 12px;
+    }
+}
+
+/* ---- Mobile: floating card menu that grows out of the button ---- */
+@media (max-width: 650px) {
+    .logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    header.scrolled {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 22px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-area {
+        position: absolute;
+        top: calc(100% + 10px);          /* gap between header and menu */
+        left: 24px;                       /* page visible on both sides */
+        right: 24px;
+        width: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 22px 6% 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 26px;
+        background: rgba(248, 247, 243, 0.62);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            0 28px 70px rgba(36, 36, 33, 0.2),
+            0 6px 16px rgba(36, 36, 33, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        /* closed state: tiny, sitting at the menu button (top-right) */
+        transform-origin: calc(100% - 15px) -46px;
+        transform: scale(0.06);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.42s cubic-bezier(0.55, 0, 0.8, 0.3),
+            opacity 0.28s ease 0.08s,
+            visibility 0s linear 0.45s;
+    }
+
+    /* Scrolled header is already inset 10px, so a smaller extra inset is enough */
+    header.scrolled .nav-area {
+        left: 14px;
+        right: 14px;
+        transform-origin: calc(100% - 26px) -46px;
+    }
+
+    .nav-area.active {
+        transform: scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.6s cubic-bezier(0.22, 1.12, 0.36, 1),
+            opacity 0.3s ease,
+            visibility 0s;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    nav a {
+        width: fit-content;
+        padding: 12px 24px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+            opacity 0.3s ease,
+            transform 0.45s var(--ease),
+            border-color 0.2s ease,
+            background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    nav a:active,
+    nav a:focus {
+        color: var(--text);
+        background: rgba(180, 154, 118, 0.14);
+        border-color: rgba(180, 154, 118, 0.35);
+    }
+
+    /* Staggered reveal after the card has grown */
+    .nav-area.active nav a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-area.active nav a:nth-child(1) { transition-delay: 0.14s; }
+    .nav-area.active nav a:nth-child(2) { transition-delay: 0.19s; }
+    .nav-area.active nav a:nth-child(3) { transition-delay: 0.24s; }
+    .nav-area.active nav a:nth-child(4) { transition-delay: 0.29s; }
+
+    .socials {
+        justify-content: center;
+        gap: 22px;
+        margin-top: 12px;
+        padding: 18px 10px 0;
+        border-left: none;
+        border-top: 1px solid rgba(36, 36, 33, 0.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header,
+    header::before,
+    .nav-area,
+    nav a {
+        transition: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   GALLERY
+   ========================================================================== */
 .gallery-hero {
     padding: 70px 5% 40px;
 }
@@ -243,24 +468,72 @@ nav a:hover, nav a.active {
     gap: 20px;
     grid-auto-rows: 10px;
 }
+
+/* =========================================
+   MASONRY ITEM + IMAGE LOADING
+   - The row span of each item is set by JS from the photo's
+     aspect ratio BEFORE the image downloads, so the grid never jumps.
+   - A soft shimmer skeleton shows while the photo loads.
+   - When it arrives, it fades in from blurred to sharp.
+========================================= */
 .masonry-item {
     position: relative;
     overflow: hidden;
     cursor: pointer;
     background: #e8e5de;
     border-radius: 4px;
-   
 }
 
+/* Loading skeleton (shimmer) */
+.masonry-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 80%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.6s infinite linear;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.masonry-item.is-loaded::before,
+.masonry-item.is-error::before {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes skeletonShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Image: starts blurred + invisible, then sharpens in */
 .masonry-item img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    opacity: 0;
+    filter: blur(22px);
+    transform: scale(1.08);
+    transition: opacity 0.9s ease, filter 0.9s ease, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.masonry-item:hover img {
+.masonry-item.is-loaded img {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+}
+
+.masonry-item.is-loaded:hover img {
     transform: scale(1.038);
 }
 
@@ -425,88 +698,28 @@ footer {
     }
 }
 
-
 @media (max-width: 650px) {
-    header {
-        height: 75px;
-    }
-
-    .logo {
-        font-size: 19px;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-area {
-        display: flex;
-        position: absolute;
-        top: 75px;
-        left: 0;
-        width: 100%;
-        background: var(--bg);
-        flex-direction: column;
-        align-items: stretch;
-        max-height: 0;
-        padding: 0 6%;
-        opacity: 0;
-        overflow: hidden;
-        visibility: hidden;
-        transform: translateY(-12px);
-        border-bottom: 1px solid transparent;
-        transition: max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s ease, visibility 0.65s, border-color 0.4s ease;
-    }
-
-    .nav-area.active {
-        max-height: 420px;
-        padding: 25px 6% 30px;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        border-bottom-color: var(--border);
-    }
-
-    nav {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .masonry-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
-
-    nav a {
-        width: fit-content;
-        text-align: center;
-        padding: 12px 22px;
-        font-size: 12px;
-        letter-spacing: 1.5px;
-        border: 1px solid transparent;
-        border-radius: 50px;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
-    }
-
-    .nav-area.active nav a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .socials {
-        border-left: none;
-        border-top: 1px solid var(--border);
-        padding: 20px 10px 0;
-        justify-content: center;
-    }
-
-    .masonry-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-   
 }
-    
+
+/* Reduced motion: no shimmer, no blur/zoom, only a simple fade */
+@media (prefers-reduced-motion: reduce) {
+    .masonry-item::before {
+        animation: none;
+    }
+
+    .masonry-item img {
+        filter: none;
+        transform: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .masonry-item.is-loaded:hover img {
+        transform: none;
+    }
 }
 </style>
 
@@ -535,7 +748,7 @@ footer {
     <div class="nav-area" id="navArea">
         <nav>
             <a href="index.html#home">Home</a>
-            <a href="gallery.html" class="active">Portfolio</a>
+            <a href="gallery.html" class="active">GALLERY</a>
             <a href="index.html#about">About</a>
             <a href="contact.html">Contact</a>
         </nav>
@@ -597,48 +810,53 @@ footer {
 <script>
 /* =========================
    1. GALLERY DATA ARRAY
+
+   Optional per photo: w, h  (the image's real pixel width & height).
+   When w/h are present the grid reserves the exact space before the
+   photo downloads (no layout jump). Photos without w/h fall back to a
+   4:5 placeholder and snap to the real ratio once loaded.
 ========================= */
 
 const galleryData = [
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-wedding.webp",
         title: "WEDDING",
-        alt: "Bride portrait"
+        alt: "Bride portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/galle-fort-rashmika-srimal-photograpy.webp",
         title: "GALLE",
-        alt: "Mountain scenery"
+        alt: "Mountain scenery rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/sunset-shoot-bride-and-groom-rashmika-srimal-photograpy.webp",
         title: "Endless Devotion",
-        alt: "Couple embracing"
+        alt: "Couple embracing rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/canditshots-culturel-book-rashmika-srimal-photograpy.webp",
         title: "LEGACY",
-        alt: "Tropical coconut trees"
+        alt: "Tropical coconut trees rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-photography-wedding.webp",
         title: "DREAM NIGHT",
-        alt: "Groom portrait"
+        alt: "Groom portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-bridal-portrait.webp",
         title: "SYLPH",
-        alt: "Serene sunset lake"
+        alt: "Serene sunset lake rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/romantic-couple-rashmika-srimal-photograpy.webp",
         title: "KISS",
-        alt: "Lush foliage macro"
+        alt: "Lush foliage macro rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/wedding-dansing-rashmika-srimal-photograpy.webp",
         title: "DANCE",
-        alt: "Romantic courtyard lights"
+        alt: "Romantic courtyard lights rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/special-single-shoot-rashmika-srimal-photograpy.webp",
@@ -648,414 +866,405 @@ const galleryData = [
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-graduation.webp",
         title: "GRADUATION",
-        alt: "Traditional saree portrait"
+        alt: "Traditional saree portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/flower-couplerashmika-srimal-photograpy.webp",
         title: "Shoreline Stroll",
-        alt: "Beach sunset stroll"
+        alt: "Beach sunset stroll rashmika photography"
     },
 
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(5).webp",
         title: "FIND LIGHT",
-        alt: "preewedding session photography of sri lanka"
+        alt: "preewedding session photography of sri lanka rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/portrait-nature-rashmika-srimal-photograpy.webp",
         title: "FLOWERS",
-        alt: "White floral bouquet"
+        alt: "White floral bouquet rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-wedding-photograpy.webp",
         title: "FEEL",
-        alt: "Vintage staircase shadow"
+        alt: "Vintage staircase shadow rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/beach-portrait-rashmika-srimal-photograpy.webp",
         title: "PORTRAIT",
-        alt: "Sunlight and shadow portrait"
+        alt: "Sunlight and shadow portrait rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(2).avif",
         title: "Her Victories",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(21).webp",
         title: "ROMANCE",
-        alt: "Elegant preshoot couple photo"
+        alt: "Elegant preshoot couple photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(15).webp",
         title: "SUNSET COLORS",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/tamil-vibe-portrait-rashmika-srimal-photograpy.webp",
         title: "CULTUR",
-        alt: "Tea estate scenery"
+        alt: "Tea estate scenery rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/preshoot-session-rashmika-srimal-photograpy.webp",
         title: "SEA & SUNSET",
-        alt: "Intimate table decor"
+        alt: "Intimate table decor rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/beach-preshoot-rashmika-srimal-photograpy.webp",
         title: "ROMANCE",
-        alt: "Groom suit portrait"
+        alt: "Groom suit portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-bride-flowers.webp",
         title: "BRIDE",
-        alt: "Golden hour blossoms"
+        alt: "Golden hour blossoms rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(5).avif",
         title: "COLORS",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/galle-fort-romance-rashmika-srimal-photograpy.webp",
         title: "FORT Glow",
-        alt: "Wedding couple portrait"
+        alt: "Wedding couple portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/birthday-photography-rashmika-srimal.webp",
         title: "FLOWER ANGEL",
-        alt: "Wedding celebration"
+        alt: "Wedding celebration rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/wedding-morning-shoot-rashmika-srimal-photograpy.webp",
         title: "Bridal Beauty",
-        alt: "Bridal beauty portrait"
+        alt: "Bridal beauty portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/sunset-portrait-rashmika-srimal-photograpy-glow.webp",
         title: "Golden Hour",
-        alt: "Golden hour couple shoot"
+        alt: "Golden hour couple shoot rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/graduation-rashmika-srimal-photograpy.webp",
         title: "SHE",
-        alt: "Couple holding hands"
+        alt: "Couple holding hands rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/sunset-portrait-rashmika-srimal-photograpy.webp",
         title: "SUNSET",
-        alt: "Wedding storytelling"
+        alt: "Wedding storytelling rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/night-shoot-rashmika-srimal-photograpy.webp",
         title: "Romantic Evening",
-        alt: "Romantic evening portrait"
+        alt: "Romantic evening portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/beach-pre-shoots-rashmika-srimal-photograpy.webp",
-        title: "Dreamy Moments",
-        alt: "Dreamy wedding portrait"
+        title: "Dreamy Moments", 
+        alt: "Dreamy wedding portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/bride-dance-rashmika-srimal-photography.webp",
         title: "Elegant Bride",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(8).avif",
         title: "JAYEWARDENEPURA",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/birthday-shoot-portrait-rashmika-srimal-photograpy.webp",
         title: "Cherished Memory",
-        alt: "Wedding memory portrait"
+        alt: "Wedding memory portrait rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/birthday-portrait-session-rashmika-srimal-photograpy.webp",
         title: "WHITE ANGEL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/black-and-red-couple-rashmika-srimal-photograpy.webp",
         title: "PREWEDDING",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/bridal-galle-rashmika-srimal-photograpy.webp",
         title: "Elegant Bride",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/event-anuladevi-rashmika-srimal-photograpy.webp",
         title: "LEADERSHIP",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/event-photography-rashmika-srimal.webp",
         title: "TRADITIONAL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/hot-romance-rashmika-srimal-photograpy.webp",
         title: "ROMANCE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/love.webp",
         title: "LOVE & PORTRAIT",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/music-playing-girl-rashmika-srimal-photograpy.webp",
         title: "VIOLIN",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/portrait-night-rashmika-srimal-photograpy.webp",
         title: "RED & BEAUTY",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(4).avif",
         title: "JAYEWARDENEPURA",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/pure-romance-rashmika-srimal-photograpy.webp",
         title: "GOLDEN HOUR",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-beautiful-bride.webp",
         title: "Elegant Bride",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-engagement.webp",
         title: "CALM & LOVE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-srimal-photograpy-graduation-bmich.webp",
         title: "STORY",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(7).avif",
         title: "CELEBRATION",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/street-rashmika-srimal-photograpy.webp",
         title: "STREET",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/traditional-couple-rashmika-srimal-photograpy.webp",
         title: "COUPLE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/weding-rashmika-srimal-photograpy.webp",
         title: "Elegant Couple",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/rashmika-photography-about.webp",
         title: "WATER FEEL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(1).webp",
         title: "BRIDE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(10).webp",
         title: "BLACK AND FEEL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(26).webp",
         title: "Water lily",
-        alt: "Elegant bride photo and flowers"
+        alt: "Elegant bride photo and flowers rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(23).webp",
         title: "RED LOVE",
-        alt: "Elegant bride photo PRE SHOOT"
+        alt: "Elegant bride photo PRE SHOOT rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(18).webp",
         title: "BEACH ANGEL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(3).webp",
         title: "SAREE",
-        alt: "Elegant bride photo saree girl"
+        alt: "Elegant bride photo saree girl rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(30).webp",
         title: "NIGHT FEEL",
-        alt: "Elegant bride & groom photo"
+        alt: "Elegant bride & groom photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(22).webp",
         title: "EDUCATION",
-        alt: "Graduation photoshoot"
+        alt: "Graduation photoshoot rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(11).webp",
         title: "RED CAR",
-        alt: "Elegant couple photo"
+        alt: "Elegant couple photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(20).webp",
         title: "BRIDE",
-        alt: "Elegant bride photo wedding"
+        alt: "Elegant bride photo wedding rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(28).webp",
         title: "BEACH FEEL",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(25).webp",
         title: "FEEL OF LOVE",
-        alt: "Elegant couple photo"
+        alt: "Elegant couple photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(19).webp",
         title: "SUNSET BIRTHDAY",
-        alt: "Elegant birthday girl photo"
+        alt: "Elegant birthday girl photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(14).webp",
         title: "RICH FEEL",
-        alt: "Elegant preshoot photo"
+        alt: "Elegant preshoot photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(1).avif",
         title: "Her Victories",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(4).webp",
         title: "WATER LOVE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(6).webp",
         title: "FIND HAPPY",
-        alt: "Elegant bride portrait photo"
+        alt: "Elegant bride portrait photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(8).webp",
         title: "LOOK HAPPY",
-        alt: "Portrait photo of bride"
+        alt: "Portrait photo of bride rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(17).webp",
         title: "THE DAY",
-        alt: "Elegant bride & groom photo morning shoot"
+        alt: "Elegant bride & groom photo morning shoot rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(24).webp",
         title: "THE HAPPY",
-        alt: "portrait photo of bride & groom"
+        alt: "portrait photo of bride & groom rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(9).webp",
         title: "BLACK & WHITE",
-        alt: "Elegant bride photo"
+        alt: "Elegant bride photo rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(7).webp",
         title: "Birthday Look",
-        alt: "birthday photography of girl"
+        alt: "birthday photography of girl rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(13).webp",
         title: "BRIDE LOOK",
-        alt: "bridal photography of sri lanka"
+        alt: "bridal photography of sri lanka rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/graduatio-photography-japura.avif",
         title: "JAPURA",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/Graduation/graduation-sri-jayewardenepura%20(3).avif",
         title: "VICTORIES",
-        alt: "birthday photography with sunset colorts"
+        alt: "birthday photography with sunset colorts rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(27).webp",
         title: "FLOWER & SMILE",
-        alt: "birthday photography"
+        alt: "birthday photography rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(16).webp",
         title: "DAY OF LOVE",
-        alt: "sri lanka wedding photography"
+        alt: "sri lanka wedding photography rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(29).webp",
         title: "WALKING TOGETHER",
-        alt: "wedding photography sri lanka"
+        alt: "wedding photography sri lanka rashmika photography"
     }, 
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/rashmika_photography_wedding_and_event%20(12).webp",
         title: "CELEBRATION",
-        alt: "wedding photography sri lanka"
+        alt: "wedding photography sri lanka rashmika photography"
     },
     
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/graduation-sri-jayewardenepura.avif",
         title: "GRADUATION",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
     {
         src: "https://image.rashmikaphotography.com/gallery/secontset/gaveena.avif",
         title: "GAVEE",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/kokila-bride.avif",
         title: "KOKILA",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/thamali.avif",
         title: "SIRILIYA",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/three-girls.avif",
         title: "3 GIRLS",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/preshoot-photography.avif",
         title: "NATURE FEEL",
-        alt: "graduation photography sri lanka"
+        alt: "graduation photography sri lanka rashmika photography"
     },
      {
         src: "https://image.rashmikaphotography.com/gallery/secontset/preshoot-photography-galle.avif",
         title: "GAVEENA",
-        alt: "graduation photography sri lanka"
-    },
-   
-    
-    
-
-
-
-
-
-    
+        alt: "graduation photography sri lanka rashmika photography"
+    }
 ];
 
 
@@ -1063,63 +1272,134 @@ const galleryData = [
 
 /* =========================
    2. RENDER GALLERY ITEMS
+
+   - First EAGER_COUNT photos load immediately (no lazy-loading), so
+     they are available to search engines and appear at once.
+     The first PRIORITY_COUNT also get high fetch priority.
+   - Everything after that is lazy-loaded.
+   - Every item reserves its final height from the photo's aspect
+     ratio before the image arrives.
 ========================= */
+const EAGER_COUNT = 8;        // photos loaded immediately (no lazy)
+const PRIORITY_COUNT = 4;     // of those, photos fetched with high priority
+const FALLBACK_RATIO = 4 / 5; // width / height, used until a photo's real size is known
+
 const galleryGrid = document.getElementById("galleryGrid");
+const itemRatios = [];        // width / height per photo
+const itemElements = [];      // grid item element per photo
 
 function renderGallery() {
-    galleryGrid.innerHTML = ""; // Clear existing grid
+    const fragment = document.createDocumentFragment();
 
     galleryData.forEach((item, index) => {
+        const hasSize = Boolean(item.w && item.h);
+        itemRatios[index] = hasSize ? item.w / item.h : FALLBACK_RATIO;
+
         const itemDiv = document.createElement("div");
         itemDiv.className = "masonry-item reveal";
         itemDiv.setAttribute("data-index", index);
 
-        itemDiv.innerHTML = `
-            <img src="${item.src}" alt="${item.alt || item.title}" loading="lazy">
-            <div class="item-caption">${item.title}</div>
-        `;
+        const img = document.createElement("img");
+        img.alt = item.alt || item.title;
+        img.decoding = "async";
+        img.loading = index < EAGER_COUNT ? "eager" : "lazy";
+        if (index < PRIORITY_COUNT) img.setAttribute("fetchpriority", "high");
+        if (hasSize) {
+            img.width = item.w;
+            img.height = item.h;
+        }
 
-        galleryGrid.appendChild(itemDiv);
+        let settled = false;
+
+        const onLoad = () => {
+            if (settled) return;
+            settled = true;
+
+            // Size not provided in data: learn it now and fix this item's height
+            if (!hasSize && img.naturalWidth && img.naturalHeight) {
+                itemRatios[index] = img.naturalWidth / img.naturalHeight;
+                scheduleMasonryLayout();
+            }
+            itemDiv.classList.add("is-loaded");
+        };
+
+        const onError = () => {
+            if (settled) return;
+            settled = true;
+            itemDiv.classList.add("is-error");
+        };
+
+        img.addEventListener("load", onLoad);
+        img.addEventListener("error", onError);
+        img.src = item.src;
+
+        // Already in cache
+        if (img.complete && img.naturalWidth) onLoad();
+
+        const caption = document.createElement("div");
+        caption.className = "item-caption";
+        caption.textContent = item.title;
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(caption);
+        itemElements[index] = itemDiv;
+        fragment.appendChild(itemDiv);
+    });
+
+    galleryGrid.innerHTML = ""; // Clear existing grid
+    galleryGrid.appendChild(fragment);
+}
+
+
+/* =========================
+   MASONRY LAYOUT (row spans from aspect ratio)
+========================= */
+function layoutMasonry() {
+    const styles = getComputedStyle(galleryGrid);
+    const rowHeight = parseFloat(styles.gridAutoRows);
+    const rowGap = parseFloat(styles.rowGap) || 0;
+    const columnGap = parseFloat(styles.columnGap) || 0;
+    const columns = styles.gridTemplateColumns.split(" ").length;
+    const gridWidth = galleryGrid.clientWidth;
+
+    if (!gridWidth || !rowHeight) return;
+
+    const columnWidth = (gridWidth - columnGap * (columns - 1)) / columns;
+
+    itemElements.forEach((itemDiv, index) => {
+        const itemHeight = columnWidth / itemRatios[index];
+        const rowSpan = Math.max(1, Math.round((itemHeight + rowGap) / (rowHeight + rowGap)));
+        itemDiv.style.gridRowEnd = `span ${rowSpan}`;
+    });
+}
+
+let layoutQueued = false;
+function scheduleMasonryLayout() {
+    if (layoutQueued) return;
+    layoutQueued = true;
+    requestAnimationFrame(() => {
+        layoutQueued = false;
+        layoutMasonry();
     });
 }
 
 // Gallery for rendaring to sreen
 renderGallery();
+layoutMasonry(); // reserve space immediately, before any image downloads
 
-
-function resizeMasonryItems() {
-    const grid = document.querySelector(".masonry-grid");
-
-    const rowHeight = parseInt(
-        getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-    );
-
-    const rowGap = parseInt(
-        getComputedStyle(grid).getPropertyValue("gap")
-    );
-
-    grid.querySelectorAll(".masonry-item").forEach(item => {
-        const img = item.querySelector("img");
-
-        const resizeItem = () => {
-            const rowSpan = Math.floor(
-                (img.getBoundingClientRect().height + rowGap) /
-                (rowHeight + rowGap)
-            );
-
-            item.style.gridRowEnd = `span ${rowSpan}`;
-        };
-
-        if (img.complete) {
-            resizeItem();
-        } else {
-            img.addEventListener("load", resizeItem);
+// Re-layout when the grid width changes (resize / orientation / breakpoints)
+let lastGridWidth = galleryGrid.clientWidth;
+if ("ResizeObserver" in window) {
+    new ResizeObserver(entries => {
+        const width = Math.round(entries[0].contentRect.width);
+        if (width !== lastGridWidth) {
+            lastGridWidth = width;
+            layoutMasonry();
         }
-    });
+    }).observe(galleryGrid);
+} else {
+    window.addEventListener("resize", scheduleMasonryLayout);
 }
-
-window.addEventListener("load", resizeMasonryItems);
-window.addEventListener("resize", resizeMasonryItems);
 
 /* =========================
    3. MOBILE MENU TOGGLE
@@ -1141,11 +1421,20 @@ menuToggle.addEventListener("click", function(event) {
     menuToggle.textContent = isOpen ? "×" : "☰";
 });
 
-document.addEventListener("click", function(event) {
-    if (navArea.classList.contains("active") && !navArea.contains(event.target) && !menuToggle.contains(event.target)) {
+// Close the moment anything outside the menu is touched / clicked
+document.addEventListener("pointerdown", function(event) {
+    const touchedInside = navArea.contains(event.target) || menuToggle.contains(event.target);
+    if (navArea.classList.contains("active") && !touchedInside) {
         closeMenu();
     }
-});
+}, { passive: true });
+
+// Close on scroll
+window.addEventListener("scroll", function() {
+    if (navArea.classList.contains("active")) {
+        closeMenu();
+    }
+}, { passive: true });
 
 document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", closeMenu);
@@ -1156,6 +1445,18 @@ window.addEventListener("resize", function() {
         closeMenu();
     }
 });
+
+/* =========================
+   HEADER SCROLL STATE (floating glass)
+========================= */
+(function initHeaderScroll() {
+    const header = document.querySelector("header");
+    if (!header) return;
+
+    const update = () => header.classList.toggle("scrolled", window.scrollY > 30);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+})();
 
 /* =========================
    4. SCROLL REVEAL ANIMATIONS
@@ -1237,4 +1538,3 @@ document.addEventListener("keydown", (e) => {
 
 </body>
 </html>
-

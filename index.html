@@ -176,6 +176,9 @@ section {
 /* ==========================================================================
    4. HEADER & NAVIGATION
    ========================================================================== */
+/* ==========================================================================
+   4. HEADER & NAVIGATION  (floating glass header + card menu)
+   ========================================================================== */
 header {
     position: sticky;
     top: 0;
@@ -184,10 +187,57 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 82px;
+    height: 78px;
+    margin: 0 auto;
     padding: 0 5%;
+    background: transparent;
+    border-radius: 0;
+    transition:
+        top 0.55s var(--ease),
+        width 0.55s var(--ease),
+        padding 0.55s var(--ease),
+        border-radius 0.55s var(--ease);
+}
+
+/* Glass layer lives in ::before so child glass (mobile menu) still blurs the page */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
     background: var(--bg);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top-color: transparent;
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
+    backdrop-filter: blur(0px) saturate(100%);
+    box-shadow: 0 0 0 rgba(36, 36, 33, 0);
+    transition:
+        background 0.55s var(--ease),
+        border-color 0.55s var(--ease),
+        box-shadow 0.55s var(--ease),
+        backdrop-filter 0.55s var(--ease),
+        -webkit-backdrop-filter 0.55s var(--ease);
+}
+
+/* ---- Scrolled: floating, rounded, glass ---- */
+header.scrolled {
+    top: 14px;
+    width: calc(100% - 32px);
+    padding: 0 28px;
+    border-radius: 26px;
+}
+
+header.scrolled::before {
+    background: rgba(248, 247, 243, 0.55);
+    border-color: rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(24px) saturate(185%);
+    backdrop-filter: blur(24px) saturate(185%);
+    box-shadow:
+        0 18px 44px rgba(36, 36, 33, 0.14),
+        0 4px 12px rgba(36, 36, 33, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .logo {
@@ -195,6 +245,16 @@ header {
     font-size: 23px;
     letter-spacing: 3px;
     white-space: nowrap;
+    transition: font-weight 0.4s ease;
+}
+
+    .logo {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+header.scrolled .logo {
+    font-weight: 600;
 }
 
 .nav-area {
@@ -219,7 +279,14 @@ nav a {
     transition:
         border-color 0.18s ease,
         color 0.18s ease,
-        background 0.18s ease;
+        background 0.18s ease,
+        font-weight 0.3s ease;
+}
+
+/* Slightly bolder, still refined, once the header turns to glass */
+header.scrolled nav a {
+    font-weight: 600;
+    
 }
 
 nav a:hover {
@@ -260,7 +327,11 @@ nav a:hover {
 /* ---- Tablet ---- */
 @media (max-width: 900px) {
     header {
-        height: 75px;
+        height: 72px;
+    }
+
+    header.scrolled {
+        padding: 0 20px;
     }
 
     .logo {
@@ -286,66 +357,97 @@ nav a:hover {
     }
 }
 
-/* ---- Mobile: collapsible menu ---- */
+/* ---- Mobile: floating card menu that grows out of the button ---- */
 @media (max-width: 650px) {
+    header.scrolled {
+        top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 22px;
+    }
+
     .menu-toggle {
         display: block;
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .nav-area {
         position: absolute;
-        top: 75px;
-        left: 0;
+        top: calc(100% + 10px);          /* gap between header and menu */
+        left: 24px;                       /* page visible on both sides */
+        right: 24px;
+        width: auto;
         flex-direction: column;
         align-items: stretch;
-        width: 100%;
-        max-height: 0;
-        padding: 0 6%;
-        overflow: hidden;
-        visibility: hidden;
+        gap: 0;
+        padding: 22px 6% 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 26px;
+        background: rgba(248, 247, 243, 0.62);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            0 28px 70px rgba(36, 36, 33, 0.2),
+            0 6px 16px rgba(36, 36, 33, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        /* closed state: tiny, sitting at the menu button (top-right) */
+                transform-origin: calc(100% - 15px) -46px;
+        transform: scale(0.06);
         opacity: 0;
-        background: var(--bg);
-        border-bottom: 1px solid transparent;
-        transform: translateY(-12px);
+        visibility: hidden;
+        pointer-events: none;
         transition:
-            max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-            opacity 0.4s ease,
-            transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-            padding 0.5s ease,
-            visibility 0.65s,
-            border-color 0.4s ease;
+            transform 0.42s cubic-bezier(0.55, 0, 0.8, 0.3),
+            opacity 0.28s ease 0.08s,
+            visibility 0s linear 0.45s;
+    }
+
+    /* Scrolled header is inset 10px already, so the card matches its width */
+        /* Scrolled header is already inset 10px, so a smaller extra inset is enough */
+    header.scrolled .nav-area {
+        left: 14px;
+        right: 14px;
+        transform-origin: calc(100% - 26px) -46px;
     }
 
     .nav-area.active {
-        max-height: 420px;
-        padding: 25px 6% 30px;
-        visibility: visible;
+        transform: scale(1);
         opacity: 1;
-        border-bottom-color: var(--border);
-        transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+            transform 0.6s cubic-bezier(0.22, 1.12, 0.36, 1),
+            opacity 0.3s ease,
+            visibility 0s;
     }
 
     nav {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
     }
 
     nav a {
         width: fit-content;
-        padding: 12px 22px;
+        padding: 12px 24px;
         font-size: 12px;
-        letter-spacing: 1.5px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
         text-align: center;
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-8px);
         transition:
-            opacity 0.4s ease,
-            transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-            border-color 0.2s ease;
-        transition-delay: 0s;
+            opacity 0.3s ease,
+            transform 0.45s var(--ease),
+            border-color 0.2s ease,
+            background 0.2s ease;
         -webkit-tap-highlight-color: transparent;
     }
 
@@ -356,23 +458,33 @@ nav a:hover {
         border-color: rgba(180, 154, 118, 0.35);
     }
 
-    /* Staggered link reveal when the menu opens */
+    /* Staggered reveal after the card has grown */
     .nav-area.active nav a {
         opacity: 1;
         transform: translateY(0);
     }
 
-    .nav-area.active nav a:nth-child(1) { transition-delay: 0.10s; }
-    .nav-area.active nav a:nth-child(2) { transition-delay: 0.16s; }
-    .nav-area.active nav a:nth-child(3) { transition-delay: 0.22s; }
-    .nav-area.active nav a:nth-child(4) { transition-delay: 0.28s; }
+    .nav-area.active nav a:nth-child(1) { transition-delay: 0.14s; }
+    .nav-area.active nav a:nth-child(2) { transition-delay: 0.19s; }
+    .nav-area.active nav a:nth-child(3) { transition-delay: 0.24s; }
+    .nav-area.active nav a:nth-child(4) { transition-delay: 0.29s; }
 
     .socials {
         justify-content: center;
-        gap: 20px;
-        padding: 20px 10px 0;
+        gap: 22px;
+        margin-top: 12px;
+        padding: 18px 10px 0;
         border-left: none;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid rgba(36, 36, 33, 0.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header,
+    header::before,
+    .nav-area,
+    nav a {
+        transition: none !important;
     }
 }
 
@@ -1908,6 +2020,9 @@ footer {
               (data, cards, popup, marquee)
      ========================================================================== -->
 <script>
+
+
+
 (function () {
     'use strict';
 
@@ -1915,6 +2030,10 @@ footer {
 
 
     /* ======================================================================
+       1. MOBILE MENU
+       ====================================================================== */
+            // Close the moment anything outside the menu is touched / clicked / scrolled
+          /* ======================================================================
        1. MOBILE MENU
        ====================================================================== */
     function initMobileMenu() {
@@ -1935,11 +2054,16 @@ footer {
             menuToggle.textContent = isOpen ? '×' : '☰';
         });
 
-        // Close when clicking outside the menu
-        document.addEventListener('click', event => {
-            const clickedInside = navArea.contains(event.target) || menuToggle.contains(event.target);
-            if (navArea.classList.contains('active') && !clickedInside) closeMenu();
-        });
+        // Close the moment anything outside the menu is touched / clicked
+        document.addEventListener('pointerdown', event => {
+            const touchedInside = navArea.contains(event.target) || menuToggle.contains(event.target);
+            if (navArea.classList.contains('active') && !touchedInside) closeMenu();
+        }, { passive: true });
+
+        // Close on scroll
+        window.addEventListener('scroll', () => {
+            if (navArea.classList.contains('active')) closeMenu();
+        }, { passive: true });
 
         // Close when a navigation link is clicked
         document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
@@ -1949,6 +2073,37 @@ footer {
             if (window.innerWidth > 650) closeMenu();
         });
     }
+
+
+    /* ======================================================================
+       HEADER SCROLL STATE (floating glass)
+       ====================================================================== */
+    function initHeaderScroll() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const update = () => header.classList.toggle('scrolled', window.scrollY > 30);
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+    }
+
+
+
+    /* ======================================================================
+       HEADER SCROLL STATE (floating glass)
+       ====================================================================== */
+    function initHeaderScroll() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const update = () => header.classList.toggle('scrolled', window.scrollY > 30);
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+    }
+
+
+
+
 
 
     /* ======================================================================
@@ -2312,7 +2467,8 @@ footer {
     /* ======================================================================
        INIT
        ====================================================================== */
-    initMobileMenu();
+        initMobileMenu();
+    initHeaderScroll();   // <-- අලුතින් add කරපු line එක
     initScrollReveal();
     initTestimonials();
 })();
