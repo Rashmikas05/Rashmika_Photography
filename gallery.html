@@ -43,6 +43,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://image.rashmikaphotography.com" crossorigin>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=optional">
@@ -243,24 +244,72 @@ nav a:hover, nav a.active {
     gap: 20px;
     grid-auto-rows: 10px;
 }
+
+/* =========================================
+   MASONRY ITEM + IMAGE LOADING
+   - The row span of each item is set by JS from the photo's
+     aspect ratio BEFORE the image downloads, so the grid never jumps.
+   - A soft shimmer skeleton shows while the photo loads.
+   - When it arrives, it fades in from blurred to sharp.
+========================================= */
 .masonry-item {
     position: relative;
     overflow: hidden;
     cursor: pointer;
     background: #e8e5de;
     border-radius: 4px;
-   
 }
 
+/* Loading skeleton (shimmer) */
+.masonry-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 20%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 80%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.6s infinite linear;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+
+.masonry-item.is-loaded::before,
+.masonry-item.is-error::before {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes skeletonShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Image: starts blurred + invisible, then sharpens in */
 .masonry-item img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    opacity: 0;
+    filter: blur(22px);
+    transform: scale(1.08);
+    transition: opacity 0.9s ease, filter 0.9s ease, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.masonry-item:hover img {
+.masonry-item.is-loaded img {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+}
+
+.masonry-item.is-loaded:hover img {
     transform: scale(1.038);
 }
 
@@ -508,6 +557,23 @@ footer {
 }
     
 }
+
+/* Reduced motion: no shimmer, no blur/zoom, only a simple fade */
+@media (prefers-reduced-motion: reduce) {
+    .masonry-item::before {
+        animation: none;
+    }
+
+    .masonry-item img {
+        filter: none;
+        transform: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .masonry-item.is-loaded:hover img {
+        transform: none;
+    }
+}
 </style>
 
 
@@ -597,6 +663,11 @@ footer {
 <script>
 /* =========================
    1. GALLERY DATA ARRAY
+
+   Optional per photo: w, h  (the image's real pixel width & height).
+   When w/h are present the grid reserves the exact space before the
+   photo downloads (no layout jump). Photos without w/h fall back to a
+   4:5 placeholder and snap to the real ratio once loaded.
 ========================= */
 
 const galleryData = [
@@ -1046,16 +1117,7 @@ const galleryData = [
         src: "https://image.rashmikaphotography.com/gallery/secontset/preshoot-photography-galle.avif",
         title: "GAVEENA",
         alt: "graduation photography sri lanka"
-    },
-   
-    
-    
-
-
-
-
-
-    
+    }
 ];
 
 
@@ -1063,63 +1125,134 @@ const galleryData = [
 
 /* =========================
    2. RENDER GALLERY ITEMS
+
+   - First EAGER_COUNT photos load immediately (no lazy-loading), so
+     they are available to search engines and appear at once.
+     The first PRIORITY_COUNT also get high fetch priority.
+   - Everything after that is lazy-loaded.
+   - Every item reserves its final height from the photo's aspect
+     ratio before the image arrives.
 ========================= */
+const EAGER_COUNT = 8;        // photos loaded immediately (no lazy)
+const PRIORITY_COUNT = 4;     // of those, photos fetched with high priority
+const FALLBACK_RATIO = 4 / 5; // width / height, used until a photo's real size is known
+
 const galleryGrid = document.getElementById("galleryGrid");
+const itemRatios = [];        // width / height per photo
+const itemElements = [];      // grid item element per photo
 
 function renderGallery() {
-    galleryGrid.innerHTML = ""; // Clear existing grid
+    const fragment = document.createDocumentFragment();
 
     galleryData.forEach((item, index) => {
+        const hasSize = Boolean(item.w && item.h);
+        itemRatios[index] = hasSize ? item.w / item.h : FALLBACK_RATIO;
+
         const itemDiv = document.createElement("div");
         itemDiv.className = "masonry-item reveal";
         itemDiv.setAttribute("data-index", index);
 
-        itemDiv.innerHTML = `
-            <img src="${item.src}" alt="${item.alt || item.title}" loading="lazy">
-            <div class="item-caption">${item.title}</div>
-        `;
+        const img = document.createElement("img");
+        img.alt = item.alt || item.title;
+        img.decoding = "async";
+        img.loading = index < EAGER_COUNT ? "eager" : "lazy";
+        if (index < PRIORITY_COUNT) img.setAttribute("fetchpriority", "high");
+        if (hasSize) {
+            img.width = item.w;
+            img.height = item.h;
+        }
 
-        galleryGrid.appendChild(itemDiv);
+        let settled = false;
+
+        const onLoad = () => {
+            if (settled) return;
+            settled = true;
+
+            // Size not provided in data: learn it now and fix this item's height
+            if (!hasSize && img.naturalWidth && img.naturalHeight) {
+                itemRatios[index] = img.naturalWidth / img.naturalHeight;
+                scheduleMasonryLayout();
+            }
+            itemDiv.classList.add("is-loaded");
+        };
+
+        const onError = () => {
+            if (settled) return;
+            settled = true;
+            itemDiv.classList.add("is-error");
+        };
+
+        img.addEventListener("load", onLoad);
+        img.addEventListener("error", onError);
+        img.src = item.src;
+
+        // Already in cache
+        if (img.complete && img.naturalWidth) onLoad();
+
+        const caption = document.createElement("div");
+        caption.className = "item-caption";
+        caption.textContent = item.title;
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(caption);
+        itemElements[index] = itemDiv;
+        fragment.appendChild(itemDiv);
+    });
+
+    galleryGrid.innerHTML = ""; // Clear existing grid
+    galleryGrid.appendChild(fragment);
+}
+
+
+/* =========================
+   MASONRY LAYOUT (row spans from aspect ratio)
+========================= */
+function layoutMasonry() {
+    const styles = getComputedStyle(galleryGrid);
+    const rowHeight = parseFloat(styles.gridAutoRows);
+    const rowGap = parseFloat(styles.rowGap) || 0;
+    const columnGap = parseFloat(styles.columnGap) || 0;
+    const columns = styles.gridTemplateColumns.split(" ").length;
+    const gridWidth = galleryGrid.clientWidth;
+
+    if (!gridWidth || !rowHeight) return;
+
+    const columnWidth = (gridWidth - columnGap * (columns - 1)) / columns;
+
+    itemElements.forEach((itemDiv, index) => {
+        const itemHeight = columnWidth / itemRatios[index];
+        const rowSpan = Math.max(1, Math.round((itemHeight + rowGap) / (rowHeight + rowGap)));
+        itemDiv.style.gridRowEnd = `span ${rowSpan}`;
+    });
+}
+
+let layoutQueued = false;
+function scheduleMasonryLayout() {
+    if (layoutQueued) return;
+    layoutQueued = true;
+    requestAnimationFrame(() => {
+        layoutQueued = false;
+        layoutMasonry();
     });
 }
 
 // Gallery for rendaring to sreen
 renderGallery();
+layoutMasonry(); // reserve space immediately, before any image downloads
 
-
-function resizeMasonryItems() {
-    const grid = document.querySelector(".masonry-grid");
-
-    const rowHeight = parseInt(
-        getComputedStyle(grid).getPropertyValue("grid-auto-rows")
-    );
-
-    const rowGap = parseInt(
-        getComputedStyle(grid).getPropertyValue("gap")
-    );
-
-    grid.querySelectorAll(".masonry-item").forEach(item => {
-        const img = item.querySelector("img");
-
-        const resizeItem = () => {
-            const rowSpan = Math.floor(
-                (img.getBoundingClientRect().height + rowGap) /
-                (rowHeight + rowGap)
-            );
-
-            item.style.gridRowEnd = `span ${rowSpan}`;
-        };
-
-        if (img.complete) {
-            resizeItem();
-        } else {
-            img.addEventListener("load", resizeItem);
+// Re-layout when the grid width changes (resize / orientation / breakpoints)
+let lastGridWidth = galleryGrid.clientWidth;
+if ("ResizeObserver" in window) {
+    new ResizeObserver(entries => {
+        const width = Math.round(entries[0].contentRect.width);
+        if (width !== lastGridWidth) {
+            lastGridWidth = width;
+            layoutMasonry();
         }
-    });
+    }).observe(galleryGrid);
+} else {
+    window.addEventListener("resize", scheduleMasonryLayout);
 }
-
-window.addEventListener("load", resizeMasonryItems);
-window.addEventListener("resize", resizeMasonryItems);
 
 /* =========================
    3. MOBILE MENU TOGGLE
@@ -1237,4 +1370,3 @@ document.addEventListener("keydown", (e) => {
 
 </body>
 </html>
-
