@@ -1526,12 +1526,29 @@ galleryGrid.addEventListener("click", (e) => {
     const photoData = galleryData[index];
 
     if (photoData) {
+
+        gtag('event', 'photo_open', {
+    photo_name: photoData.title,
+    photo_url: photoData.src,
+    page_name: 'gallery'
+    });
+    
         lightboxImg.src = photoData.src;
         lightboxImg.alt = photoData.alt || photoData.title;
         lightboxCaption.textContent = photoData.title;
         lightboxModal.classList.add("active");
         document.body.style.overflow = "hidden";
     }
+
+    gtag('event', 'photo_open', {
+
+    photo_name: photoData.title,
+    photo_url: photoData.src,
+    page_name: 'gallery'
+
+});
+
+
 });
 
 function closeLightbox() {
@@ -1552,6 +1569,8 @@ document.addEventListener("keydown", (e) => {
         closeLightbox();
     }
 });
+
+
 </script>
 
 </body>
