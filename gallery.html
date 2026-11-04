@@ -1571,19 +1571,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 
-//test GA4 data
-if (photoData) {
-
-    console.log('Photo Open:', photoData.title);
-
-    gtag('event', 'photo_open', {
-        photo_name: photoData.title,
-        photo_url: photoData.src,
-        page_name: 'gallery'
-    });
-
-    
-}
 
 
 
